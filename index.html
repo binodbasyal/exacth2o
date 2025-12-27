@@ -45,6 +45,11 @@
             letter-spacing: -1px;
             text-decoration: none;
             color: white;
+            transition: opacity 0.3s;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
         }
 
         .logo span {
@@ -76,6 +81,9 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
         }
 
         .hero::before {
@@ -120,6 +128,7 @@
             font-size: 1.1rem;
             transition: transform 0.3s, box-shadow 0.3s;
             animation: fadeInUp 0.8s ease 0.4s backwards;
+            margin: 0.5rem;
         }
 
         .cta-button:hover {
@@ -127,24 +136,42 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
-        /* Features Section */
-        .features {
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: #0066cc;
+        }
+
+        /* Quick Features Section */
+        .quick-features {
             padding: 80px 2rem;
             background: #f8f9fa;
         }
 
-        .features h2 {
+        .quick-features h2 {
             text-align: center;
             font-size: 2.5rem;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             color: #0066cc;
+        }
+
+        .quick-features p {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: #666;
         }
 
         .features-grid {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
         }
 
@@ -153,6 +180,7 @@
             padding: 2rem;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
@@ -168,122 +196,27 @@
 
         .feature-card h3 {
             color: #0066cc;
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
         }
 
-        /* Target Audience */
-        .audience {
-            padding: 80px 2rem;
-            background: white;
-        }
-
-        .audience h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #0066cc;
-        }
-
-        .audience-grid {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .audience-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 2rem;
-            border-radius: 15px;
-            border-left: 5px solid #0066cc;
-        }
-
-        .audience-card h3 {
-            color: #0066cc;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        /* Quote Form */
-        .quote-section {
+        /* CTA Section */
+        .cta-section {
             padding: 80px 2rem;
             background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
             color: white;
+            text-align: center;
         }
 
-        .quote-section h2 {
-            text-align: center;
+        .cta-section h2 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
         }
 
-        .quote-section p {
-            text-align: center;
+        .cta-section p {
             font-size: 1.2rem;
-            margin-bottom: 3rem;
-            opacity: 0.9;
-        }
-
-        .quote-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #333;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #0066cc;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-button {
-            width: 100%;
-            background: #0066cc;
-            color: white;
-            padding: 1rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .submit-button:hover {
-            background: #0052a3;
+            margin-bottom: 2rem;
+            opacity: 0.95;
         }
 
         /* Footer */
@@ -296,6 +229,7 @@
 
         footer p {
             opacity: 0.8;
+            margin: 0.5rem 0;
         }
 
         /* Animations */
@@ -322,204 +256,73 @@
 
             nav ul {
                 gap: 1rem;
+                font-size: 0.9rem;
             }
 
-            .features h2,
-            .audience h2,
-            .quote-section h2 {
-                font-size: 2rem;
+            .logo {
+                font-size: 1.5rem;
             }
-        }
-
-        .success-message {
-            display: none;
-            background: #28a745;
-            color: white;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            text-align: center;
         }
     </style>
 </head>
 <body>
     <header>
         <nav>
-            <a href="#home" class="logo">exact<span>H2O</span></a>
+            <a href="index.html" class="logo">exact<span>H2O</span></a>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#audience">Applications</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#quote">Get Quote</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="applications.html">Applications</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="quote.html">Get Quote</a></li>
             </ul>
         </nav>
     </header>
 
     <section class="hero">
-        <div class="hero-content" id="home">
+        <div class="hero-content">
             <h1>Precision Irrigation for Research & High-Value Crops</h1>
             <p>Advanced sensor-based irrigation control with web dashboard monitoring. Optimize water usage, enhance research accuracy, and maximize crop yields.</p>
-            <a href="#quote" class="cta-button">Request a Quote</a>
+            <a href="quote.html" class="cta-button">Request a Quote</a>
+            <a href="features.html" class="cta-button secondary">Learn More</a>
         </div>
     </section>
 
-    <section id="features" class="features">
-        <h2>Advanced Features</h2>
+    <section class="quick-features">
+        <h2>Why exactH2O?</h2>
+        <p>Intelligent irrigation technology designed for precision and reliability</p>
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">💧</div>
-                <h3>Water Saving Technology</h3>
-                <p>Intelligent algorithms reduce water consumption by up to 40% while maintaining optimal plant hydration levels.</p>
+                <h3>Water Saving</h3>
+                <p>Reduce water consumption by up to 40% with intelligent algorithms</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📊</div>
                 <h3>Smart Scheduling</h3>
-                <p>Automated irrigation schedules based on real-time data, plant requirements, and environmental conditions.</p>
+                <p>Automated irrigation based on real-time environmental data</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🌐</div>
-                <h3>Web-Based Dashboard</h3>
-                <p>Monitor and control your irrigation system from anywhere with our intuitive cloud-based platform.</p>
+                <h3>Web Dashboard</h3>
+                <p>Monitor and control from anywhere with cloud-based platform</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📡</div>
                 <h3>Sensor Integration</h3>
-                <p>Advanced soil moisture, temperature, and humidity sensors provide precise environmental data for optimal irrigation.</p>
+                <p>Precise environmental monitoring for optimal irrigation</p>
             </div>
         </div>
     </section>
 
-    <section id="audience" class="audience">
-        <h2>Perfect For</h2>
-        <div class="audience-grid">
-            <div class="audience-card">
-                <h3>🔬 Plant Researchers</h3>
-                <p>Precise control for drought and irrigation studies. Collect detailed data, ensure experimental consistency, and achieve reproducible results with programmable irrigation protocols.</p>
-            </div>
-            <div class="audience-card">
-                <h3>🌿 High-Value Crop Growers</h3>
-                <p>Optimize yields for cannabis, specialty crops, and greenhouse operations. Maximize quality and profitability with precision water management tailored to your crop's needs.</p>
-            </div>
-            <div class="audience-card">
-                <h3>🏢 Greenhouse Operators</h3>
-                <p>Scalable solutions for controlled environment agriculture. Monitor multiple zones, automate scheduling, and reduce labor costs while improving plant health.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="audience">
-        <h2>About exactH2O</h2>
-        <div style="max-width: 900px; margin: 0 auto;">
-            <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem; text-align: center;">
-                exactH2O is a cutting-edge automatic irrigation system designed for precision water management in research and high-value crop production. Our mission is to help scientists and growers achieve optimal results through intelligent, data-driven irrigation control.
-            </p>
-            <div class="audience-grid">
-                <div class="audience-card">
-                    <h3>🎯 Our Mission</h3>
-                    <p>To revolutionize irrigation management by combining advanced sensor technology with intelligent automation, enabling precise water control for research and commercial applications.</p>
-                </div>
-                <div class="audience-card">
-                    <h3>💡 Our Technology</h3>
-                    <p>Built on years of agricultural research and engineering expertise, exactH2O integrates real-time environmental monitoring with smart scheduling algorithms to deliver unparalleled irrigation precision.</p>
-                </div>
-                <div class="audience-card">
-                    <h3>🌱 Our Commitment</h3>
-                    <p>We're dedicated to water conservation, sustainable agriculture, and supporting the research community with tools that advance plant science and optimize crop production.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="quote" class="quote-section">
-        <h2>Get Your Custom Quote</h2>
-        <p>Tell us about your irrigation needs and we'll provide a tailored solution</p>
-        <form class="quote-form" id="quoteForm">
-            <div class="success-message" id="successMessage">
-                Thank you! Your quote request has been received. We'll contact you soon.
-            </div>
-            <div class="form-group">
-                <label for="name">Name *</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="organization">Organization/Institution</label>
-                <input type="text" id="organization" name="organization">
-            </div>
-            <div class="form-group">
-                <label for="application">Application Type *</label>
-                <select id="application" name="application" required>
-                    <option value="">Select...</option>
-                    <option value="research">Plant Research</option>
-                    <option value="cannabis">Cannabis/High-Value Crops</option>
-                    <option value="greenhouse">Greenhouse Operations</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="area">Coverage Area (sq ft or acres)</label>
-                <input type="text" id="area" name="area">
-            </div>
-            <div class="form-group">
-                <label for="message">Project Details *</label>
-                <textarea id="message" name="message" required placeholder="Tell us about your irrigation needs, number of zones, specific requirements, etc."></textarea>
-            </div>
-            <button type="submit" class="submit-button">Request Quote</button>
-        </form>
+    <section class="cta-section">
+        <h2>Ready to Optimize Your Irrigation?</h2>
+        <p>Get a custom quote tailored to your specific needs</p>
+        <a href="quote.html" class="cta-button">Get Started Today</a>
     </section>
 
     <footer>
         <p>&copy; 2024 exactH2O. All rights reserved.</p>
         <p>Contact: bslbinod@gmail.com</p>
     </footer>
-
-    <script>
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Form submission
-        document.getElementById('quoteForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            // Create mailto link with form data
-            const subject = encodeURIComponent('exactH2O Quote Request from ' + data.name);
-            const body = encodeURIComponent(
-                `Name: ${data.name}\n` +
-                `Email: ${data.email}\n` +
-                `Organization: ${data.organization}\n` +
-                `Application: ${data.application}\n` +
-                `Coverage Area: ${data.area}\n` +
-                `Project Details:\n${data.message}`
-            );
-            
-            window.location.href = `mailto:bslbinod@gmail.com?subject=${subject}&body=${body}`;
-            
-            // Show success message
-            document.getElementById('successMessage').style.display = 'block';
-            this.reset();
-            
-            setTimeout(() => {
-                document.getElementById('successMessage').style.display = 'none';
-            }, 5000);
-        });
-    </script>
 </body>
 </html>
