@@ -90,123 +90,142 @@
             margin: 0 auto;
         }
 
-        .about-section {
-            padding: 80px 2rem;
-            background: white;
-        }
-
-        .about-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .about-intro {
-            font-size: 1.3rem;
-            line-height: 1.9;
-            color: #555;
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-
-        .values-section {
+        .founders-section {
             padding: 80px 2rem;
             background: #f8f9fa;
         }
 
-        .values-container {
+        .founders-container {
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .values-container h2 {
+        .section-intro {
             text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-intro h2 {
             font-size: 2.5rem;
             color: #0066cc;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
         }
 
-        .values-grid {
+        .section-intro p {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .founders-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
         }
 
-        .value-card {
+        .founder-card {
             background: white;
-            padding: 2.5rem;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            text-align: center;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .value-card:hover {
+        .founder-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(0,0,0,0.15);
         }
 
-        .value-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .value-card h3 {
+        .founder-photo {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
             color: #0066cc;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .value-card p {
-            font-size: 1.1rem;
+        .founder-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-placeholder {
+            font-size: 1.2rem;
+            color: #0066cc;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .founder-info {
+            padding: 2rem;
+        }
+
+        .founder-name {
+            font-size: 1.8rem;
+            color: #0066cc;
+            margin-bottom: 0.3rem;
+            font-weight: bold;
+        }
+
+        .founder-title {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .founder-bio {
+            font-size: 1rem;
             line-height: 1.7;
             color: #555;
-        }
-
-        .story-section {
-            padding: 80px 2rem;
-            background: white;
-        }
-
-        .story-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .story-container h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            color: #0066cc;
-            margin-bottom: 2rem;
-        }
-
-        .story-content {
-            font-size: 1.15rem;
-            line-height: 1.9;
-            color: #555;
-        }
-
-        .story-content p {
             margin-bottom: 1.5rem;
         }
 
-        .highlight-box {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            padding: 2rem;
-            border-radius: 15px;
-            border-left: 5px solid #0066cc;
-            margin: 2rem 0;
+        .founder-contact {
+            border-top: 2px solid #f0f0f0;
+            padding-top: 1.5rem;
         }
 
-        .highlight-box h3 {
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .contact-icon {
+            width: 35px;
+            height: 35px;
+            background: #0066cc;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item a {
             color: #0066cc;
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
+            text-decoration: none;
+            transition: color 0.3s;
         }
 
-        .highlight-box p {
+        .contact-item a:hover {
+            color: #004d99;
+            text-decoration: underline;
+        }
+
+        .contact-text {
             color: #555;
-            font-size: 1.1rem;
-            margin-bottom: 0;
         }
 
         .cta-section {
@@ -265,9 +284,12 @@
                 font-size: 0.9rem;
             }
 
-            .values-container h2,
-            .story-container h2 {
+            .section-intro h2 {
                 font-size: 2rem;
+            }
+
+            .founders-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -286,88 +308,101 @@
     </header>
 
     <section class="page-header">
-        <h1>About exactH2O</h1>
-        <p>Pioneering precision irrigation technology for research and high-value agriculture</p>
+        <h1>Meet Our Team</h1>
+        <p>The innovative minds behind exactH2O's precision irrigation technology</p>
     </section>
 
-    <section class="about-section">
-        <div class="about-container">
-            <p class="about-intro">
-                exactH2O is a cutting-edge automatic irrigation system designed for precision water management in research and high-value crop production. We combine advanced sensor technology with intelligent automation to help scientists and growers achieve optimal results through data-driven irrigation control.
-            </p>
-        </div>
-    </section>
-
-    <section class="values-section">
-        <div class="values-container">
-            <h2>Our Core Values</h2>
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="value-icon">🎯</div>
-                    <h3>Precision</h3>
-                    <p>We believe in delivering exact water amounts at the right time, eliminating guesswork and waste from irrigation management.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">🔬</div>
-                    <h3>Innovation</h3>
-                    <p>Built on scientific research and engineering excellence, we continuously advance irrigation technology to meet evolving needs.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">🌍</div>
-                    <h3>Sustainability</h3>
-                    <p>We're committed to water conservation and sustainable agriculture, helping reduce environmental impact while improving productivity.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">🤝</div>
-                    <h3>Partnership</h3>
-                    <p>We work closely with researchers and growers to understand their challenges and develop solutions that truly meet their needs.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">📊</div>
-                    <h3>Data-Driven</h3>
-                    <p>Every irrigation decision should be based on real, actionable data. Our systems provide the insights needed for informed management.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">💪</div>
-                    <h3>Reliability</h3>
-                    <p>Research and commercial operations depend on consistent performance. We engineer our systems for dependable, long-term operation.</p>
-                </div>
+    <section class="founders-section">
+        <div class="founders-container">
+            <div class="section-intro">
+                <h2>Our Leadership Team</h2>
+                <p>Bringing together expertise in technology, agriculture, and business</p>
             </div>
-        </div>
-    </section>
 
-    <section class="story-section">
-        <div class="story-container">
-            <h2>Our Mission</h2>
-            <div class="story-content">
-                <p>
-                    exactH2O was developed to address a critical need in agricultural research and high-value crop production: the need for precise, reliable, and intelligent irrigation control. Traditional irrigation systems often lack the precision required for scientific research or the optimization capabilities needed to maximize crop quality and resource efficiency.
-                </p>
-                <p>
-                    Our mission is to revolutionize irrigation management by combining advanced sensor technology with intelligent automation. We enable researchers to conduct reproducible studies with confidence and help commercial growers optimize their operations for maximum yield and quality while minimizing resource use.
-                </p>
-
-                <div class="highlight-box">
-                    <h3>Why exactH2O Matters</h3>
-                    <p>
-                        Water scarcity is one of agriculture's biggest challenges. At the same time, the demand for high-quality research and premium crops continues to grow. exactH2O addresses both challenges by providing the tools needed to use water more efficiently while achieving better results.
-                    </p>
+            <div class="founders-grid">
+                <!-- CEO Card -->
+                <div class="founder-card">
+                    <div class="founder-photo">
+                        <!-- Replace "ceo.jpg" with your actual photo filename -->
+                        <img src="ceo.jpg" alt="CEO Name" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="photo-placeholder" style="display:none;">
+                            👤<br>CEO Photo<br>Upload as "ceo.jpg"
+                        </div>
+                    </div>
+                    <div class="founder-info">
+                        <h3 class="founder-name">John Doe</h3>
+                        <p class="founder-title">Chief Executive Officer (CEO)</p>
+                        <p class="founder-bio">
+                            [Replace this with CEO bio. Write 2-3 sentences about their background, expertise, and role at exactH2O. For example: their education, previous experience, and what they bring to the company.]
+                        </p>
+                        <div class="founder-contact">
+                            <div class="contact-item">
+                                <div class="contact-icon">📧</div>
+                                <a href="mailto:ceo@exacth2o.com">ceo@exacth2o.com</a>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">💼</div>
+                                <a href="https://linkedin.com/in/username" target="_blank">LinkedIn Profile</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <p>
-                    Whether you're a researcher studying plant responses to drought stress, a licensed cannabis cultivator optimizing cannabinoid production, or a greenhouse operator managing multiple crop types, exactH2O provides the precision and reliability you need to succeed.
-                </p>
-
-                <div class="highlight-box">
-                    <h3>Our Commitment to Research</h3>
-                    <p>
-                        We understand the unique requirements of scientific research. That's why exactH2O offers research-grade data logging, programmable protocols, and the ability to maintain exact experimental conditions across multiple treatment groups. Your research deserves the best tools available.
-                    </p>
+                <!-- CTO Card -->
+                <div class="founder-card">
+                    <div class="founder-photo">
+                        <!-- Replace "cto.jpg" with your actual photo filename -->
+                        <img src="cto.jpg" alt="CTO Name" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="photo-placeholder" style="display:none;">
+                            👤<br>CTO Photo<br>Upload as "cto.jpg"
+                        </div>
+                    </div>
+                    <div class="founder-info">
+                        <h3 class="founder-name">Jane Smith</h3>
+                        <p class="founder-title">Chief Technology Officer (CTO)</p>
+                        <p class="founder-bio">
+                            [Replace this with CTO bio. Write 2-3 sentences about their technical background, expertise in irrigation systems or software, and their contributions to exactH2O's technology.]
+                        </p>
+                        <div class="founder-contact">
+                            <div class="contact-item">
+                                <div class="contact-icon">📧</div>
+                                <a href="mailto:cto@exacth2o.com">cto@exacth2o.com</a>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">🌐</div>
+                                <a href="https://www.example.com" target="_blank">www.example.com</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <p>
-                    As we continue to grow, our focus remains on delivering innovative solutions that help our customers achieve their goals while promoting sustainable water use and advancing agricultural science.
-                </p>
+                <!-- COO Card -->
+                <div class="founder-card">
+                    <div class="founder-photo">
+                        <!-- Replace "coo.jpg" with your actual photo filename -->
+                        <img src="coo.jpg" alt="COO Name" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="photo-placeholder" style="display:none;">
+                            👤<br>COO Photo<br>Upload as "coo.jpg"
+                        </div>
+                    </div>
+                    <div class="founder-info">
+                        <h3 class="founder-name">Mike Johnson</h3>
+                        <p class="founder-title">Chief Operating Officer (COO)</p>
+                        <p class="founder-bio">
+                            [Replace this with COO bio. Write 2-3 sentences about their operational experience, business management background, and how they ensure exactH2O's smooth operations.]
+                        </p>
+                        <div class="founder-contact">
+                            <div class="contact-item">
+                                <div class="contact-icon">📧</div>
+                                <a href="mailto:coo@exacth2o.com">coo@exacth2o.com</a>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">🌐</div>
+                                <a href="https://www.example.com" target="_blank">www.example.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
