@@ -43,6 +43,8 @@
             font-size: 1.8rem;
             font-weight: bold;
             letter-spacing: -1px;
+            text-decoration: none;
+            color: white;
         }
 
         .logo span {
@@ -343,17 +345,19 @@
 <body>
     <header>
         <nav>
-            <div class="logo">exact<span>H2O</span></div>
+            <a href="#home" class="logo">exact<span>H2O</span></a>
             <ul>
+                <li><a href="#home">Home</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#audience">Applications</a></li>
+                <li><a href="#about">About Us</a></li>
                 <li><a href="#quote">Get Quote</a></li>
             </ul>
         </nav>
     </header>
 
     <section class="hero">
-        <div class="hero-content">
+        <div class="hero-content" id="home">
             <h1>Precision Irrigation for Research & High-Value Crops</h1>
             <p>Advanced sensor-based irrigation control with web dashboard monitoring. Optimize water usage, enhance research accuracy, and maximize crop yields.</p>
             <a href="#quote" class="cta-button">Request a Quote</a>
@@ -400,6 +404,29 @@
             <div class="audience-card">
                 <h3>🏢 Greenhouse Operators</h3>
                 <p>Scalable solutions for controlled environment agriculture. Monitor multiple zones, automate scheduling, and reduce labor costs while improving plant health.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="audience">
+        <h2>About exactH2O</h2>
+        <div style="max-width: 900px; margin: 0 auto;">
+            <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem; text-align: center;">
+                exactH2O is a cutting-edge automatic irrigation system designed for precision water management in research and high-value crop production. Our mission is to help scientists and growers achieve optimal results through intelligent, data-driven irrigation control.
+            </p>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <h3>🎯 Our Mission</h3>
+                    <p>To revolutionize irrigation management by combining advanced sensor technology with intelligent automation, enabling precise water control for research and commercial applications.</p>
+                </div>
+                <div class="audience-card">
+                    <h3>💡 Our Technology</h3>
+                    <p>Built on years of agricultural research and engineering expertise, exactH2O integrates real-time environmental monitoring with smart scheduling algorithms to deliver unparalleled irrigation precision.</p>
+                </div>
+                <div class="audience-card">
+                    <h3>🌱 Our Commitment</h3>
+                    <p>We're dedicated to water conservation, sustainable agriculture, and supporting the research community with tools that advance plant science and optimize crop production.</p>
+                </div>
             </div>
         </div>
     </section>
