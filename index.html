@@ -87,23 +87,18 @@
         }
 
         .hero-container {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
             position: relative;
             z-index: 2;
         }
 
         .hero-content {
-            position: absolute;
-            top: 50%;
-            left: 2rem;
-            transform: translateY(-50%);
-            max-width: 650px;
-            z-index: 10;
-            background: rgba(0, 102, 204, 0.95);
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            padding-right: 2rem;
         }
 
         .hero h1 {
@@ -153,9 +148,8 @@
         .slideshow-container {
             position: relative;
             width: 100%;
-            max-width: 1200px;
-            height: 700px;
-            margin: 0 auto;
+            max-width: 600px;
+            height: 450px;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
@@ -358,27 +352,27 @@
 
         /* Responsive */
         @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
             .hero-content {
-                position: relative;
-                top: auto;
-                left: auto;
-                transform: none;
-                max-width: 100%;
-                margin-bottom: 2rem;
+                padding-right: 0;
             }
 
             .slideshow-container {
-                height: 500px;
+                margin: 0 auto;
             }
         }
 
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .hero p {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
 
             nav ul {
@@ -392,10 +386,6 @@
 
             .slideshow-container {
                 height: 350px;
-            }
-
-            .hero-content {
-                padding: 2rem;
             }
         }
     </style>
