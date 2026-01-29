@@ -285,6 +285,10 @@
             transition: transform 0.3s, box-shadow 0.3s;
             overflow: hidden;
             position: relative;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .feature-card:hover {
@@ -293,18 +297,34 @@
         }
 
         .feature-image {
+            position: absolute;
             width: 100%;
-            height: 250px;
+            height: 100%;
             object-fit: cover;
-            display: block;
+            z-index: 1;
         }
 
         .feature-text {
+            position: relative;
+            z-index: 2;
             padding: 2rem;
+            color: white;
+            background: rgba(0, 102, 204, 0.85);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .feature-card.no-image {
             padding: 2rem;
+        }
+
+        .feature-card.no-image .feature-text {
+            background: transparent;
+            color: #333;
         }
 
         .feature-icon {
@@ -313,9 +333,21 @@
         }
 
         .feature-card h3 {
-            color: #0066cc;
+            color: white;
             margin-bottom: 0.5rem;
             font-size: 1.3rem;
+        }
+
+        .feature-card.no-image h3 {
+            color: #0066cc;
+        }
+
+        .feature-card p {
+            color: white;
+        }
+
+        .feature-card.no-image p {
+            color: #333;
         }
 
         /* CTA Section */
@@ -494,7 +526,7 @@
             <div class="feature-card">
                 <img src="scheduling.jpg" alt="Smart Scheduling" class="feature-image" onerror="this.style.display='none';">
                 <div class="feature-text">
-                    <div class="feature-icon">📊</div>
+                    
                     <h3>Smart Scheduling</h3>
                     <p>Automated irrigation based on real-time environmental data</p>
                 </div>
@@ -502,7 +534,7 @@
             <div class="feature-card">
                 <img src="dashboard.jpg" alt="Web Dashboard" class="feature-image" onerror="this.style.display='none';">
                 <div class="feature-text">
-                    <div class="feature-icon">🌐</div>
+                   
                     <h3>Web Dashboard</h3>
                     <p>Monitor and control from anywhere with cloud-based platform</p>
                 </div>
@@ -510,7 +542,7 @@
             <div class="feature-card">
                 <img src="sensor.jpg" alt="Sensor Integration" class="feature-image" onerror="this.style.display='none';">
                 <div class="feature-text">
-                    <div class="feature-icon">📡</div>
+                   
                     <h3>Sensor Integration</h3>
                     <p>Precise environmental monitoring for optimal irrigation</p>
                 </div>
@@ -525,7 +557,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2024 exactH2O. All rights reserved.</p>
+        <p>&copy; 2026 exactH2O. All rights reserved.</p>
         <p>Contact: bslbinod@gmail.com</p>
     </footer>
 
