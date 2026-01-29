@@ -148,8 +148,8 @@
         .slideshow-container {
             position: relative;
             width: 100%;
-            max-width: 800px;
-            height: 600px;
+            max-width: 600px;
+            height: 450px;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
@@ -278,16 +278,33 @@
 
         .feature-card {
             background: white;
-            padding: 2rem;
+            padding: 0;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
             text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+            position: relative;
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .feature-text {
+            padding: 2rem;
+        }
+
+        .feature-card.no-image {
+            padding: 2rem;
         }
 
         .feature-icon {
@@ -407,7 +424,7 @@
         <div class="hero-container">
             <div class="hero-content">
                 <h1>Precision Irrigation for Research & High-Value Crops</h1>
-                <p>Advanced sensor-based irrigation with web dashboard monitoring control. Optimize water usage, enhance research accuracy, and maximize crop yields.</p>
+                <p>Advanced sensor-based irrigation control with web dashboard monitoring. Optimize water usage, enhance research accuracy, and maximize crop yields.</p>
                 <a href="quote.html" class="cta-button">Request a Quote</a>
                 <a href="features.html" class="cta-button secondary">Learn More</a>
             </div>
@@ -439,17 +456,17 @@
 
                 <!-- Slide 4 -->
                 <div class="slide">
-                    <img src="product4.jpg" alt="Sensor Integration" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="product4.jpg" alt="Field Installation" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="slide-placeholder" style="display:none;">
-                        📸<br><br>Product Image 3<br>Upload as "product4.jpg"
+                        📸<br><br>Product Image 4<br>Upload as "product4.jpg"
                     </div>
                 </div>
 
                 <!-- Slide 5 -->
                 <div class="slide">
-                    <img src="product5.jpg" alt="Sensor Integration" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="product5.jpg" alt="Control System" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="slide-placeholder" style="display:none;">
-                        📸<br><br>Product Image 3<br>Upload as "product5.jpg"
+                        📸<br><br>Product Image 5<br>Upload as "product5.jpg"
                     </div>
                 </div>
 
@@ -473,25 +490,30 @@
         <h2>Why exactH2O?</h2>
         <p>Intelligent irrigation technology designed for precision and reliability</p>
         <div class="features-grid">
+            
             <div class="feature-card">
-                <div class="feature-icon">💧</div>
-                <h3>Water Saving</h3>
-                <p>Reduce water consumption by up to 40% with intelligent algorithms</p>
+                <img src="scheduling.jpg" alt="Smart Scheduling" class="feature-image" onerror="this.style.display='none';">
+                <div class="feature-text">
+                    <div class="feature-icon">📊</div>
+                    <h3>Smart Scheduling</h3>
+                    <p>Automated irrigation based on real-time environmental data</p>
+                </div>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3>Smart Scheduling</h3>
-                <p>Automated irrigation based on real-time environmental data</p>
+                <img src="dashboard.jpg" alt="Web Dashboard" class="feature-image" onerror="this.style.display='none';">
+                <div class="feature-text">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Web Dashboard</h3>
+                    <p>Monitor and control from anywhere with cloud-based platform</p>
+                </div>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🌐</div>
-                <h3>Web Dashboard</h3>
-                <p>Monitor and control from anywhere with cloud-based platform</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📡</div>
-                <h3>Sensor Integration</h3>
-                <p>Precise environmental monitoring for optimal irrigation</p>
+                <img src="sensor.jpg" alt="Sensor Integration" class="feature-image" onerror="this.style.display='none';">
+                <div class="feature-text">
+                    <div class="feature-icon">📡</div>
+                    <h3>Sensor Integration</h3>
+                    <p>Precise environmental monitoring for optimal irrigation</p>
+                </div>
             </div>
         </div>
     </section>
@@ -545,9 +567,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
