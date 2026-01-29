@@ -149,7 +149,7 @@
             position: relative;
             width: 100%;
             max-width: 1200px;
-            height: 900px;
+            height: 800px;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
@@ -287,8 +287,8 @@
             position: relative;
             min-height: 400px;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
         }
 
         .feature-card:hover {
@@ -297,56 +297,72 @@
         }
 
         .feature-image {
-            position: absolute;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: 1;
+            flex: 1;
         }
 
         .feature-text {
-            position: relative;
-            z-index: 2;
-            padding: 2rem;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            padding: 1.5rem;
+            background: white;
         }
 
         .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
         }
 
         .feature-card h3 {
             margin-bottom: 0.5rem;
             font-size: 1.5rem;
             font-weight: bold;
+            color: #0066cc;
         }
 
         .feature-card p {
-            font-size: 1.1rem;
+            font-size: 1rem;
+            color: #666;
         }
 
-        /* Specific colors for each card */
-        .feature-card.scheduling h3,
-        .feature-card.scheduling p {
-            color: #0066cc;
+        /* Modal for enlarged image */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            align-items: center;
+            justify-content: center;
         }
 
-        .feature-card.dashboard h3,
-        .feature-card.dashboard p {
-            color: #0066cc;
+        .modal.active {
+            display: flex;
         }
 
-        .feature-card.sensor h3,
-        .feature-card.sensor p {
-            color: #0066cc;
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            color: white;
+            font-size: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #66d9ff;
         }
 
         /* CTA Section */
@@ -521,32 +537,38 @@
         <h2>Why exactH2O?</h2>
         <p>Intelligent irrigation technology designed for precision and reliability</p>
         <div class="features-grid">
-            <div class="feature-card scheduling">
-                <img src="scheduling.jpg" alt="Smart Scheduling" class="feature-image" onerror="this.style.display='none';">
+            <div class="feature-card scheduling" onclick="openModal('scheduling.jpg')">
                 <div class="feature-text">
                     <div class="feature-icon">📊</div>
                     <h3>Smart Scheduling</h3>
                     <p>Automated irrigation based on real-time environmental data</p>
                 </div>
+                <img src="scheduling.jpg" alt="Smart Scheduling" class="feature-image" onerror="this.style.display='none';">
             </div>
-            <div class="feature-card dashboard">
-                <img src="dashboard.jpg" alt="Web Dashboard" class="feature-image" onerror="this.style.display='none';">
+            <div class="feature-card dashboard" onclick="openModal('dashboard.jpg')">
                 <div class="feature-text">
                     <div class="feature-icon">🌐</div>
                     <h3>Web Dashboard</h3>
                     <p>Monitor and control from anywhere with cloud-based platform</p>
                 </div>
+                <img src="dashboard.jpg" alt="Web Dashboard" class="feature-image" onerror="this.style.display='none';">
             </div>
-            <div class="feature-card sensor">
-                <img src="sensor.jpg" alt="Sensor Integration" class="feature-image" onerror="this.style.display='none';">
+            <div class="feature-card sensor" onclick="openModal('sensor.jpg')">
                 <div class="feature-text">
                     <div class="feature-icon">📡</div>
                     <h3>Sensor Integration</h3>
                     <p>Precise environmental monitoring for optimal irrigation</p>
                 </div>
+                <img src="sensor.jpg" alt="Sensor Integration" class="feature-image" onerror="this.style.display='none';">
             </div>
         </div>
     </section>
+
+    <!-- Modal for enlarged images -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img id="modalImage" class="modal-content">
+    </div>
 
     <section class="cta-section">
         <h2>Ready to Optimize Your Irrigation?</h2>
@@ -594,7 +616,19 @@
             slides[currentSlideIndex].classList.add('active');
             indicators[currentSlideIndex].classList.add('active');
         }
+
+        // Modal functions for enlarged images
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            modal.classList.add('active');
+            modalImage.src = imageSrc;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+        }
     </script>
 </body>
 </html>
-
