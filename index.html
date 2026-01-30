@@ -56,21 +56,82 @@
             color: #66d9ff;
         }
 
-        nav ul {
-            list-style: none;
+        /* Hamburger Menu */
+        .hamburger {
+            width: 35px;
+            height: 30px;
             display: flex;
-            gap: 2rem;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1001;
         }
 
-        nav a {
-            color: white;
+        .hamburger span {
+            width: 100%;
+            height: 4px;
+            background-color: white;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* Dropdown Menu */
+        .nav-menu {
+            position: absolute;
+            top: 100%;
+            right: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            min-width: 200px;
+        }
+
+        .nav-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-menu ul {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .nav-menu li:last-child {
+            border-bottom: none;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #0066cc;
             text-decoration: none;
-            transition: color 0.3s;
             font-weight: 500;
+            transition: background 0.3s;
         }
 
-        nav a:hover {
-            color: #66d9ff;
+        .nav-menu a:hover {
+            background: #f0f0f0;
         }
 
         /* Hero Section with Slideshow */
@@ -430,7 +491,7 @@
             }
 
             .features-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -443,17 +504,16 @@
                 font-size: 1.1rem;
             }
 
-            nav ul {
-                gap: 1rem;
-                font-size: 0.9rem;
-            }
-
             .logo {
                 font-size: 1.5rem;
             }
 
             .slideshow-container {
                 height: 350px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -462,12 +522,21 @@
     <header>
         <nav>
             <a href="index.html" class="logo">exact<span>H2O</span></a>
-            <ul>
-                <li><a href="features.html">Features</a></li>
-                <li><a href="applications.html">Applications</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="quote.html">Get Quote</a></li>
-            </ul>
+            
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="applications.html">Applications</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="quote.html">Get Quote</a></li>
+                </ul>
+            </div>
         </nav>
     </header>
 
@@ -552,7 +621,6 @@
         <div class="features-grid">
             <div class="feature-card scheduling" onclick="openModal('scheduling.jpg')">
                 <div class="feature-text">
-                   
                     <h3>Smart Scheduling</h3>
                     <p>Automated irrigation based on real-time soil moisture data</p>
                 </div>
@@ -560,7 +628,6 @@
             </div>
             <div class="feature-card dashboard" onclick="openModal('dashboard.jpg')">
                 <div class="feature-text">
-                  
                     <h3>Web Dashboard</h3>
                     <p>Monitor and control from anywhere with cloud-based platform</p>
                 </div>
@@ -568,7 +635,6 @@
             </div>
             <div class="feature-card sensor" onclick="openModal('sensor.jpg')">
                 <div class="feature-text">
-                   
                     <h3>Sensor Integration</h3>
                     <p>Accurate soil moisture and temperature monitoring</p>
                 </div>
@@ -576,7 +642,6 @@
             </div>
             <div class="feature-card scaling" onclick="openModal('scaling.jpg')">
                 <div class="feature-text">
-                   
                     <h3>Easy Scaling</h3>
                     <p>Seamlessly expand your irrigation system from a few pots to large operations with modular design</p>
                 </div>
@@ -650,13 +715,26 @@
             const modal = document.getElementById('imageModal');
             modal.classList.remove('active');
         }
+
+        // Hamburger menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const isClickInside = menu.contains(event.target) || hamburger.contains(event.target);
+            
+            if (!isClickInside && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
