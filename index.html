@@ -148,8 +148,8 @@
         .slideshow-container {
             position: relative;
             width: 100%;
-            max-width: 1200px;
-            height: 800px;
+            max-width: 600px;
+            height: 450px;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
@@ -269,13 +269,12 @@
         }
 
         .features-grid {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-    gap: 2rem;
-}
-
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
 
         .feature-card {
             background: white;
@@ -429,6 +428,10 @@
             .slideshow-container {
                 margin: 0 auto;
             }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
@@ -518,14 +521,6 @@
                     </div>
                 </div>
 
-                 <!-- Slide 6 -->
-                <div class="slide">
-                    <img src="product6.jpg" alt="Control System" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="slide-placeholder" style="display:none;">
-                        📸<br><br>Product Image 6<br>Upload as "product6.jpg"
-                    </div>
-                </div>
-
                 <!-- Navigation Arrows -->
                 <a class="prev" onclick="changeSlide(-1)">❮</a>
                 <a class="next" onclick="changeSlide(1)">❯</a>
@@ -536,7 +531,6 @@
                     <span class="indicator" onclick="currentSlide(1)"></span>
                     <span class="indicator" onclick="currentSlide(2)"></span>
                     <span class="indicator" onclick="currentSlide(3)"></span>
-                    <span class="indicator" onclick="currentSlide(4)"></span>
                     <span class="indicator" onclick="currentSlide(4)"></span>
                 </div>
             </div>
@@ -570,6 +564,14 @@
                     <p>Precise environmental monitoring for optimal irrigation</p>
                 </div>
                 <img src="sensor.jpg" alt="Sensor Integration" class="feature-image" onerror="this.style.display='none';">
+            </div>
+            <div class="feature-card scaling" onclick="openModal('scaling.jpg')">
+                <div class="feature-text">
+                    <div class="feature-icon">📈</div>
+                    <h3>Easy Scaling</h3>
+                    <p>Seamlessly expand your irrigation system from small plots to large operations with modular design</p>
+                </div>
+                <img src="scaling.jpg" alt="Easy Scaling" class="feature-image" onerror="this.style.display='none';">
             </div>
         </div>
     </section>
@@ -642,7 +644,3 @@
     </script>
 </body>
 </html>
-
-
-
-
