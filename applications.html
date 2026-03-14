@@ -76,6 +76,18 @@
     transition: opacity 0.2s;
   }
   .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--water); }
+  .nav-cta { background: var(--water); color: var(--bg) !important; padding: 0.4rem 1rem; border-radius: 2px; opacity: 1 !important; }
+  .nav-cta:hover { background: var(--water-light) !important; }
+  .hamburger { display: none; flex-direction: column; justify-content: space-between; width: 28px; height: 20px; cursor: pointer; z-index: 300; }
+  .hamburger span { width: 100%; height: 2px; background: var(--water); border-radius: 2px; transition: all 0.3s; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px,6px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px,-6px); }
+  .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg-dark); z-index: 250; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+  .mobile-menu.active { display: flex; }
+  .mobile-menu a { font-family: var(--serif); font-size: 2.2rem; color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
+  .mobile-menu a:hover { opacity: 0.7; }
+  .mob-close { position: absolute; top: 1.5rem; right: 2rem; font-family: var(--mono); font-size: 0.8rem; color: rgba(244,241,235,0.4); cursor: pointer; letter-spacing: 0.1em; }
 
   /* ── HERO ── */
   .hero {
@@ -596,8 +608,9 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    nav { padding: 1rem 2rem; }
+    nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
+    .hamburger { display: flex; }
     .hero { grid-template-columns: 1fr; }
     .hero-right { display: none; }
     .hero-left { padding: 8rem 2rem 4rem; }
@@ -614,15 +627,28 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">exact<span>H</span>2<span>O</span></a>
+  <a href="index.html" class="nav-logo">exact<span>H</span>2<span>O</span></a>
   <ul class="nav-links">
-    <li><a href="#">System</a></li>
-    <li><a href="#">Science</a></li>
-    <li><a href="#" class="active">Applications</a></li>
-    <li><a href="#">Data</a></li>
-    <li><a href="#">Contact</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="applications.html" class="active">Applications</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="support.html">Support</a></li>
+    <li><a href="quote.html" class="nav-cta">Get Quote</a></li>
   </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mob-close" onclick="toggleMenu()">✕ close</span>
+  <a href="index.html" onclick="toggleMenu()">Home</a>
+  <a href="applications.html" onclick="toggleMenu()">Applications</a>
+  <a href="about.html" onclick="toggleMenu()">About Us</a>
+  <a href="support.html" onclick="toggleMenu()">Support</a>
+  <a href="quote.html" onclick="toggleMenu()">Get Quote</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1083,10 +1109,16 @@
 <footer>
   <div class="footer-logo">exactH2O</div>
   <div>Applications · exacth2o.com</div>
-  <div>© 2025 exactH2O · All rights reserved</div>
+  <div><a href="mailto:bslbinod@gmail.com" style="color:rgba(244,241,235,0.35);text-decoration:none;">bslbinod@gmail.com</a></div>
 </footer>
 
 <script>
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('active');
+    document.getElementById('hamburger').classList.toggle('active');
+  }
+
   // Intersection Observer for reveal animations
   const revealEls = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
