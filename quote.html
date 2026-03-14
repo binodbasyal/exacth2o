@@ -1,495 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Quote - exactH2O</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get a Quote â€” exactH2O</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4f1eb; --bg-dark: #0e1a14; --ink: #0e1a14;
+  --water: #1a6b4a; --water-light: #2e9e6e; --water-pale: #d4ede3;
+  --accent: #7cbf9e; --amber: #c8853a; --mist: #e8e3d8;
+  --rule: rgba(14,26,20,0.15); --card-bg: #ffffff;
+  --serif: 'DM Serif Display', serif; --mono: 'DM Mono', monospace; --sans: 'Instrument Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.6; overflow-x: hidden; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
+/* â”€â”€ NAV â”€â”€ */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 1.1rem 3rem; background: rgba(14,26,20,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(124,191,158,0.15); }
+.nav-logo { font-family: var(--mono); font-size: 1.15rem; font-weight: 500; letter-spacing: -0.02em; color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
+.nav-logo:hover { opacity: 0.75; }
+.nav-logo span { color: rgba(244,241,235,0.5); }
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(244,241,235,0.55); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--accent); }
+.nav-cta { background: var(--water); color: #fff !important; padding: 0.45rem 1.1rem; border-radius: 2px; font-size: 0.7rem !important; }
+.nav-cta:hover { background: var(--water-light) !important; opacity: 1 !important; }
+.hamburger { display: none; flex-direction: column; justify-content: space-between; width: 28px; height: 20px; cursor: pointer; z-index: 300; }
+.hamburger span { width: 100%; height: 2px; background: var(--accent); border-radius: 2px; transition: all 0.3s; }
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px,6px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px,-6px); }
+.mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg-dark); z-index: 250; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+.mobile-menu.active { display: flex; }
+.mobile-menu a { font-family: var(--serif); font-size: 2.2rem; color: var(--accent); text-decoration: none; }
+.mob-close { position: absolute; top: 1.5rem; right: 2rem; font-family: var(--mono); font-size: 0.8rem; color: rgba(244,241,235,0.4); cursor: pointer; letter-spacing: 0.1em; }
 
-        header {
-            background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+/* â”€â”€ PAGE HEADER â”€â”€ */
+.page-header { background: var(--bg-dark); min-height: 52vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 9rem 4rem 5rem; position: relative; overflow: hidden; }
+.ph-eyebrow { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+.ph-eyebrow::before { content: ''; width: 2rem; height: 1px; background: var(--accent); display: block; }
+.page-header h1 { font-family: var(--serif); font-size: clamp(3rem, 5vw, 5.5rem); line-height: 1.0; letter-spacing: -0.02em; color: #f4f1eb; margin-bottom: 1.5rem; }
+.page-header h1 em { font-style: italic; color: var(--accent); }
+.ph-sub { font-size: 1rem; line-height: 1.75; color: rgba(244,241,235,0.55); max-width: 55ch; border-left: 2px solid var(--water); padding-left: 1.25rem; }
 
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
+/* â”€â”€ QUOTE SECTION â”€â”€ */
+.quote-section { padding: 6rem 4rem; background: var(--bg); }
+.quote-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 5rem; align-items: start; }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            letter-spacing: -1px;
-            text-decoration: none;
-            color: white;
-            transition: opacity 0.3s;
-        }
+/* Info sidebar */
+.q-sidebar { position: sticky; top: 7rem; }
+.section-label { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--water); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.7rem; }
+.section-label::before { content: ''; width: 1.5rem; height: 1px; background: var(--water); display: block; }
+.section-title { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.8rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+.q-intro { font-size: 0.9rem; line-height: 1.75; opacity: 0.6; margin-bottom: 2.5rem; }
 
-        .logo:hover {
-            opacity: 0.8;
-        }
+.q-points { display: flex; flex-direction: column; gap: 0; margin-bottom: 2.5rem; }
+.q-point { padding: 1.1rem 0; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: 1.8rem 1fr; gap: 0.8rem; align-items: start; }
+.q-point-icon { color: var(--water); font-size: 0.9rem; margin-top: 0.15rem; }
+.q-point-title { font-size: 0.88rem; font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; }
+.q-point-desc { font-size: 0.8rem; line-height: 1.6; opacity: 0.55; }
 
-        .logo span {
-            color: #66d9ff;
-        }
+.q-contact { background: var(--bg-dark); padding: 1.5rem; border-radius: 2px; }
+.q-contact-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
+.q-contact p { font-size: 0.85rem; color: rgba(244,241,235,0.6); line-height: 1.6; }
+.q-contact a { color: var(--accent); text-decoration: none; }
+.q-contact a:hover { text-decoration: underline; }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
+/* Form */
+.quote-form { background: #fff; border: 1px solid var(--rule); padding: 3rem; }
+.form-heading { font-family: var(--serif); font-size: 1.6rem; color: var(--ink); margin-bottom: 0.5rem; }
+.form-subheading { font-size: 0.88rem; opacity: 0.55; margin-bottom: 2.5rem; }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 500;
-        }
+.success-msg {
+  display: none; background: var(--water-pale); border: 1px solid var(--water);
+  color: var(--water); padding: 1.2rem 1.5rem; border-radius: 2px;
+  font-family: var(--mono); font-size: 0.82rem; letter-spacing: 0.04em;
+  margin-bottom: 2rem;
+}
 
-        nav a:hover {
-            color: #66d9ff;
-        }
+.form-group { margin-bottom: 1.5rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.form-group label { display: block; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); opacity: 0.6; margin-bottom: 0.5rem; }
+.req { color: var(--water); }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 0.85rem 1rem;
+  border: 1px solid var(--rule); border-radius: 2px;
+  font-family: var(--sans); font-size: 0.92rem; color: var(--ink);
+  background: var(--bg); transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none; border-color: var(--water-light);
+  box-shadow: 0 0 0 3px rgba(46,158,110,0.1);
+}
+.form-group textarea { resize: vertical; min-height: 130px; }
+.submit-btn {
+  width: 100%; background: var(--water); color: #fff;
+  padding: 1.1rem; border: none; border-radius: 2px;
+  font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; margin-top: 0.5rem; transition: background 0.2s;
+}
+.submit-btn:hover { background: var(--water-light); }
 
-        .page-header {
-            background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
-            color: white;
-            padding: 120px 2rem 60px;
-            text-align: center;
-        }
+/* â”€â”€ FOOTER â”€â”€ */
+footer { background: var(--bg-dark); color: rgba(244,241,235,0.35); padding: 2.5rem 4rem; display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.05em; border-top: 1px solid rgba(124,191,158,0.08); }
+.footer-logo { color: var(--accent); font-size: 0.85rem; }
+footer a { color: rgba(244,241,235,0.35); text-decoration: none; }
+footer a:hover { color: var(--accent); }
 
-        .page-header h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
+/* â”€â”€ REVEAL â”€â”€ */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: none; }
 
-        .page-header p {
-            font-size: 1.2rem;
-            opacity: 0.95;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .quote-section {
-            padding: 80px 2rem;
-            background: #f8f9fa;
-        }
-
-        .quote-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .info-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .info-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-            text-align: center;
-        }
-
-        .info-card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .info-card h3 {
-            color: #0066cc;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .info-card p {
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        .quote-form {
-            background: white;
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
-        .form-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .form-header h2 {
-            color: #0066cc;
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-header p {
-            color: #666;
-            font-size: 1.1rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #333;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .required {
-            color: #d32f2f;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 0.9rem;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #0066cc;
-            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 140px;
-        }
-
-        .form-group select {
-            cursor: pointer;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .submit-button {
-            width: 100%;
-            background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
-            color: white;
-            padding: 1.2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            margin-top: 1rem;
-        }
-
-        .submit-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 102, 204, 0.3);
-        }
-
-        .submit-button:active {
-            transform: translateY(0);
-        }
-
-        .success-message {
-            display: none;
-            background: #28a745;
-            color: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            text-align: center;
-            font-size: 1.1rem;
-            animation: slideDown 0.5s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .contact-info {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            margin-top: 3rem;
-            text-align: center;
-        }
-
-        .contact-info h3 {
-            color: #0066cc;
-            margin-bottom: 1rem;
-        }
-
-        .contact-info p {
-            color: #666;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-info a {
-            color: #0066cc;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .contact-info a:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            background: #1a1a1a;
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            margin-top: 0;
-        }
-
-        footer p {
-            opacity: 0.8;
-            margin: 0.5rem 0;
-        }
-
-        @media (max-width: 768px) {
-            .page-header h1 {
-                font-size: 2rem;
-            }
-
-            .quote-form {
-                padding: 2rem 1.5rem;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            nav ul {
-                gap: 1rem;
-                font-size: 0.9rem;
-            }
-
-            .info-cards {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .page-header { padding: 8rem 1.5rem 4rem; }
+  .quote-section { padding: 4rem 1.5rem; }
+  .quote-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .q-sidebar { position: static; }
+  .form-row { grid-template-columns: 1fr; }
+  .quote-form { padding: 2rem 1.5rem; }
+  footer { flex-direction: column; gap: 0.8rem; text-align: center; padding: 2rem 1.5rem; }
+}
+</style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html" class="logo">exact<span>H2O</span></a>
-            <ul>
-                <li><a href="features.html">Features</a></li>
-                <li><a href="support.html">support</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="quote.html">Get Quote</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <section class="page-header">
-        <h1>Get Your Custom Quote</h1>
-        <p>Tell us about your irrigation needs and we'll provide a tailored solution designed for your specific requirements</p>
-    </section>
+<nav>
+  <a href="index.html" class="nav-logo">exact<span>H</span>2<span>O</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="applications.html">Applications</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="support.html">Support</a></li>
+    <li><a href="quote.html" class="nav-cta active">Get Quote</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mob-close" onclick="toggleMenu()">âœ• close</span>
+  <a href="index.html" onclick="toggleMenu()">Home</a>
+  <a href="applications.html" onclick="toggleMenu()">Applications</a>
+  <a href="about.html" onclick="toggleMenu()">About Us</a>
+  <a href="support.html" onclick="toggleMenu()">Support</a>
+  <a href="quote.html" onclick="toggleMenu()">Get Quote</a>
+</div>
 
-    <section class="quote-section">
-        <div class="quote-container">
-            <div class="info-cards">
-                <div class="info-card">
-                    <div class="info-card-icon">⚡</div>
-                    <h3>Fast Response</h3>
-                    <p>We'll get back to you within 24 hours</p>
-                </div>
-                <div class="info-card">
-                    <div class="info-card-icon">🎯</div>
-                    <h3>Custom Solutions</h3>
-                    <p>Tailored to your exact needs</p>
-                </div>
-                <div class="info-card">
-                    <div class="info-card-icon">💰</div>
-                    <h3>No Obligation</h3>
-                    <p>Free consultation and quote</p>
-                </div>
-            </div>
+<div class="page-header">
+  <div class="ph-eyebrow">Get Started</div>
+  <h1>Tell us about<br>your <em>project</em></h1>
+  <p class="ph-sub">We'll design a solution around your facility, crop, and research needs â€” and get back to you within 24 hours.</p>
+</div>
 
-            <form class="quote-form" id="quoteForm">
-                <div class="success-message" id="successMessage">
-                    ✓ Thank you! Your quote request has been received. We'll contact you within 24 hours.
-                </div>
+<div class="quote-section">
+  <div class="quote-inner reveal">
 
-                <div class="form-header">
-                    <h2>Request Your Quote</h2>
-                    <p>Fill out the form below and we'll be in touch soon</p>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="name">Full Name <span class="required">*</span></label>
-                        <input type="text" id="name" name="name" required placeholder="John Doe">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address <span class="required">*</span></label>
-                        <input type="email" id="email" name="email" required placeholder="john@example.com">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567">
-                    </div>
-                    <div class="form-group">
-                        <label for="organization">Organization/Institution</label>
-                        <input type="text" id="organization" name="organization" placeholder="University, Company, etc.">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="application">Application Type <span class="required">*</span></label>
-                    <select id="application" name="application" required>
-                        <option value="">Please select...</option>
-                        <option value="research">Plant Research / Drought Studies</option>
-                        <option value="cannabis">Cannabis / High-Value Crops</option>
-                        <option value="greenhouse">Greenhouse Operations</option>
-                        <option value="commercial">Commercial Agriculture</option>
-                        <option value="other">Other (please specify in details)</option>
-                    </select>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="area">Coverage Area</label>
-                        <input type="text" id="area" name="area" placeholder="e.g., 2000 sq ft or 5 acres">
-                    </div>
-                    <div class="form-group">
-                        <label for="zones">Number of Zones</label>
-                        <input type="text" id="zones" name="zones" placeholder="e.g., 4 zones">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="timeline">Expected Timeline</label>
-                    <select id="timeline" name="timeline">
-                        <option value="">Select timeline...</option>
-                        <option value="immediate">Immediate (within 1 month)</option>
-                        <option value="1-3months">1-3 months</option>
-                        <option value="3-6months">3-6 months</option>
-                        <option value="6+months">6+ months</option>
-                        <option value="planning">Just planning / researching</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="message">Project Details <span class="required">*</span></label>
-                    <textarea id="message" name="message" required placeholder="Please tell us about your irrigation needs, specific requirements, challenges you're facing, or any questions you have..."></textarea>
-                </div>
-
-                <button type="submit" class="submit-button">Submit Quote Request</button>
-            </form>
-
-            <div class="contact-info">
-                <h3>Prefer to Contact Us Directly?</h3>
-                <p>Email: <a href="mailto:bslbinod@gmail.com">bslbinod@gmail.com</a></p>
-                <p>We're here to answer any questions you may have</p>
-            </div>
+    <div class="q-sidebar">
+      <div class="section-label">Why request a quote</div>
+      <h2 class="section-title">Custom-fitted<br>to your setup</h2>
+      <p class="q-intro">No two irrigation systems are identical. We size each deployment around your substrate, zone count, data requirements, and budget.</p>
+      <div class="q-points">
+        <div class="q-point">
+          <span class="q-point-icon">âš¡</span>
+          <div>
+            <div class="q-point-title">24-hour Response</div>
+            <div class="q-point-desc">We'll get back to you within one business day with questions or a preliminary recommendation.</div>
+          </div>
         </div>
-    </section>
+        <div class="q-point">
+          <span class="q-point-icon">ðŸŽ¯</span>
+          <div>
+            <div class="q-point-title">Tailored Solutions</div>
+            <div class="q-point-desc">From single growth chambers to multi-range greenhouse complexes â€” every quote is specific.</div>
+          </div>
+        </div>
+        <div class="q-point">
+          <span class="q-point-icon">ðŸ’¬</span>
+          <div>
+            <div class="q-point-title">No Obligation</div>
+            <div class="q-point-desc">Consultation and quote are completely free. No commitment required.</div>
+          </div>
+        </div>
+      </div>
+      <div class="q-contact">
+        <div class="q-contact-label">Direct Contact</div>
+        <p>Prefer email? Reach us directly at <a href="mailto:bslbinod@gmail.com">bslbinod@gmail.com</a> â€” we're happy to discuss your project before a formal quote.</p>
+      </div>
+    </div>
 
-    <footer>
-        <p>&copy; 2024 exactH2O. All rights reserved.</p>
-        <p>Contact: bslbinod@gmail.com</p>
-    </footer>
+    <div>
+      <form class="quote-form" id="quoteForm">
+        <div class="success-msg" id="successMsg">
+          âœ“ Quote request received. We'll be in touch within 24 hours.
+        </div>
+        <h3 class="form-heading">Request Your Quote</h3>
+        <p class="form-subheading">Fill out the form below and we'll be in touch soon</p>
 
-    <script>
-        document.getElementById('quoteForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            // Create mailto link with form data
-            const subject = encodeURIComponent('exactH2O Quote Request from ' + data.name);
-            const body = encodeURIComponent(
-                `QUOTE REQUEST DETAILS\n` +
-                `========================\n\n` +
-                `Contact Information:\n` +
-                `Name: ${data.name}\n` +
-                `Email: ${data.email}\n` +
-                `Phone: ${data.phone || 'Not provided'}\n` +
-                `Organization: ${data.organization || 'Not provided'}\n\n` +
-                `Project Information:\n` +
-                `Application Type: ${data.application}\n` +
-                `Coverage Area: ${data.area || 'Not specified'}\n` +
-                `Number of Zones: ${data.zones || 'Not specified'}\n` +
-                `Timeline: ${data.timeline || 'Not specified'}\n\n` +
-                `Project Details:\n` +
-                `${data.message}\n\n` +
-                `========================\n` +
-                `This request was submitted via the exactH2O website quote form.`
-            );
-            
-            // Open email client
-            window.location.href = `mailto:bslbinod@gmail.com?subject=${subject}&body=${body}`;
-            
-            // Show success message
-            document.getElementById('successMessage').style.display = 'block';
-            
-            // Reset form
-            this.reset();
-            
-            // Scroll to success message
-            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            
-            // Hide message after 8 seconds
-            setTimeout(() => {
-                document.getElementById('successMessage').style.display = 'none';
-            }, 8000);
-        });
-    </script>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name <span class="req">*</span></label>
+            <input type="text" id="name" name="name" required placeholder="Jane Smith">
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address <span class="req">*</span></label>
+            <input type="email" id="email" name="email" required placeholder="jane@university.edu">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567">
+          </div>
+          <div class="form-group">
+            <label for="org">Organization / Institution</label>
+            <input type="text" id="org" name="organization" placeholder="Michigan State University">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="application">Application Type <span class="req">*</span></label>
+          <select id="application" name="application" required>
+            <option value="">Please selectâ€¦</option>
+            <option value="research">Plant Research / Drought Studies</option>
+            <option value="greenhouse">Research Greenhouse Operations</option>
+            <option value="phenotyping">High-throughput Phenotyping</option>
+            <option value="cannabis">Cannabis / High-Value Crops</option>
+            <option value="commercial">Commercial Agriculture / Field</option>
+            <option value="other">Other (describe below)</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="area">Coverage Area</label>
+            <input type="text" id="area" name="area" placeholder="e.g., 2000 sq ft or 5 acres">
+          </div>
+          <div class="form-group">
+            <label for="zones">Number of Zones / Sensors</label>
+            <input type="text" id="zones" name="zones" placeholder="e.g., 4 zones, 96 pots">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="timeline">Expected Timeline</label>
+          <select id="timeline" name="timeline">
+            <option value="">Select timelineâ€¦</option>
+            <option value="immediate">Immediate (within 1 month)</option>
+            <option value="1-3months">1â€“3 months</option>
+            <option value="3-6months">3â€“6 months</option>
+            <option value="6+months">6+ months</option>
+            <option value="planning">Just planning / researching</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Project Details <span class="req">*</span></label>
+          <textarea id="message" name="message" required placeholder="Tell us about your irrigation needs, research goals, existing setup, or any specific requirementsâ€¦"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Submit Quote Request</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">exactH2O</div>
+  <div>Get Quote Â· exacth2o.com</div>
+  <div><a href="mailto:bslbinod@gmail.com">bslbinod@gmail.com</a></div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('active');
+    document.getElementById('hamburger').classList.toggle('active');
+  }
+  document.getElementById('quoteForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(this));
+    const subject = encodeURIComponent('exactH2O Quote Request from ' + d.name);
+    const body = encodeURIComponent(
+      'QUOTE REQUEST\n========================\n\n' +
+      'Name: ' + d.name + '\nEmail: ' + d.email + '\nPhone: ' + (d.phone||'Not provided') +
+      '\nOrganization: ' + (d.organization||'Not provided') + '\n\n' +
+      'Application: ' + d.application + '\nArea: ' + (d.area||'Not specified') +
+      '\nZones: ' + (d.zones||'Not specified') + '\nTimeline: ' + (d.timeline||'Not specified') +
+      '\n\nDetails:\n' + d.message
+    );
+    window.location.href = 'mailto:bslbinod@gmail.com?subject=' + subject + '&body=' + body;
+    document.getElementById('successMsg').style.display = 'block';
+    this.reset();
+    window.scrollTo({ top: document.querySelector('.quote-form').offsetTop - 100, behavior: 'smooth' });
+  });
+  const revealEls = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => obs.observe(el));
+</script>
 </body>
-
 </html>
