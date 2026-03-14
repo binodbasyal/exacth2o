@@ -1,739 +1,363 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support - exactH2O</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --blue-deep: #003f88;
-            --blue-mid: #0066cc;
-            --blue-light: #e8f2ff;
-            --blue-accent: #66d9ff;
-            --text-dark: #1a2b3c;
-            --text-mid: #4a5e72;
-            --text-light: #8a9bb0;
-            --bg-white: #ffffff;
-            --bg-soft: #f4f8fd;
-            --border: #d6e4f5;
-            --success: #00a878;
-            --card-shadow: 0 2px 16px rgba(0, 63, 136, 0.08);
-            --card-shadow-hover: 0 8px 32px rgba(0, 63, 136, 0.16);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — exactH2O</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4f1eb; --bg-dark: #0e1a14; --ink: #0e1a14;
+  --water: #1a6b4a; --water-light: #2e9e6e; --water-pale: #d4ede3;
+  --accent: #7cbf9e; --amber: #c8853a; --mist: #e8e3d8;
+  --rule: rgba(14,26,20,0.15); --card-bg: #ffffff;
+  --serif: 'DM Serif Display', serif; --mono: 'DM Mono', monospace; --sans: 'Instrument Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.6; overflow-x: hidden; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+/* ── NAV ── */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 1.1rem 3rem; background: rgba(14,26,20,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(124,191,158,0.15); }
+.nav-logo { font-family: var(--mono); font-size: 1.15rem; font-weight: 500; letter-spacing: -0.02em; color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
+.nav-logo:hover { opacity: 0.75; }
+.nav-logo span { color: rgba(244,241,235,0.5); }
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(244,241,235,0.55); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--accent); }
+.nav-cta { background: var(--water); color: #fff !important; padding: 0.45rem 1.1rem; border-radius: 2px; font-size: 0.7rem !important; }
+.nav-cta:hover { background: var(--water-light) !important; opacity: 1 !important; }
+.hamburger { display: none; flex-direction: column; justify-content: space-between; width: 28px; height: 20px; cursor: pointer; z-index: 300; }
+.hamburger span { width: 100%; height: 2px; background: var(--accent); border-radius: 2px; transition: all 0.3s; }
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px,6px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px,-6px); }
+.mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg-dark); z-index: 250; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+.mobile-menu.active { display: flex; }
+.mobile-menu a { font-family: var(--serif); font-size: 2.2rem; color: var(--accent); text-decoration: none; }
+.mob-close { position: absolute; top: 1.5rem; right: 2rem; font-family: var(--mono); font-size: 0.8rem; color: rgba(244,241,235,0.4); cursor: pointer; letter-spacing: 0.1em; }
 
-        body {
-            font-family: 'DM Sans', sans-serif;
-            color: var(--text-dark);
-            background: var(--bg-white);
-            line-height: 1.6;
-        }
+/* ── PAGE HEADER ── */
+.page-header { background: var(--bg-dark); min-height: 52vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 9rem 4rem 5rem; position: relative; overflow: hidden; }
+.ph-eyebrow { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+.ph-eyebrow::before { content: ''; width: 2rem; height: 1px; background: var(--accent); display: block; }
+.page-header h1 { font-family: var(--serif); font-size: clamp(3rem, 5vw, 5.5rem); line-height: 1.0; letter-spacing: -0.02em; color: #f4f1eb; margin-bottom: 1.5rem; }
+.page-header h1 em { font-style: italic; color: var(--accent); }
+.ph-sub { font-size: 1rem; line-height: 1.75; color: rgba(244,241,235,0.55); max-width: 55ch; border-left: 2px solid var(--water); padding-left: 1.25rem; }
 
-        /* ── HEADER ── */
-        header {
-            background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-mid) 100%);
-            color: white;
-            padding: 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.15);
-        }
+/* ── SECTION HELPERS ── */
+.section-label { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--water); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.7rem; }
+.section-label::before { content: ''; width: 1.5rem; height: 1px; background: var(--water); display: block; }
+.section-title { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3.2rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
 
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-            height: 64px;
-        }
+/* ── CONTACT SECTION ── */
+.contact-section { padding: 7rem 4rem; background: var(--bg); }
+.contact-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; align-items: start; }
+.contact-desc { font-size: 1rem; line-height: 1.8; opacity: 0.65; margin-top: 0.5rem; }
 
-        .logo {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.8rem;
-            font-weight: 400;
-            text-decoration: none;
-            color: white;
-            letter-spacing: -0.5px;
-            transition: opacity 0.3s;
-        }
-        .logo:hover { opacity: 0.85; }
-        .logo span { color: var(--blue-accent); }
+.contact-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--rule); border: 1px solid var(--rule); }
+.contact-card { background: var(--bg); padding: 2.2rem; transition: background 0.3s; }
+.contact-card:hover { background: var(--water-pale); }
+.cc-icon { width: 44px; height: 44px; color: var(--water); margin-bottom: 1.2rem; }
+.cc-title { font-family: var(--serif); font-size: 1.3rem; color: var(--ink); margin-bottom: 0.6rem; }
+.cc-desc { font-size: 0.85rem; line-height: 1.65; opacity: 0.6; margin-bottom: 1.2rem; }
+.cc-link { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.06em; color: var(--water); text-decoration: none; border-bottom: 1px solid rgba(26,107,74,0.3); padding-bottom: 0.15rem; transition: border-color 0.2s; }
+.cc-link:hover { border-color: var(--water); }
 
-        /* Desktop nav */
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
-        .nav-links a {
-            color: rgba(255,255,255,0.88);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.2s;
-            letter-spacing: 0.01em;
-        }
-        .nav-links a:hover,
-        .nav-links a.active { color: var(--blue-accent); }
+/* ── FAQ SECTION ── */
+.faq-section { padding: 7rem 4rem; background: var(--mist); }
+.faq-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; align-items: start; }
+.faq-list { display: flex; flex-direction: column; gap: 0; }
+.faq-item { border-bottom: 1px solid var(--rule); overflow: hidden; }
+.faq-question {
+  padding: 1.4rem 0; display: flex; justify-content: space-between; align-items: center;
+  cursor: pointer; font-size: 0.95rem; font-weight: 600; color: var(--ink);
+  transition: color 0.2s;
+}
+.faq-question:hover { color: var(--water); }
+.faq-toggle { font-family: var(--mono); font-size: 1.1rem; color: var(--water); transition: transform 0.3s; flex-shrink: 0; margin-left: 1rem; }
+.faq-item.open .faq-toggle { transform: rotate(45deg); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+.faq-answer-inner { padding: 0 0 1.4rem; font-size: 0.88rem; line-height: 1.75; opacity: 0.65; }
+.faq-item.open .faq-answer { max-height: 300px; }
 
-        /* Hamburger */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 6px;
-            border-radius: 6px;
-            transition: background 0.2s;
-        }
-        .hamburger:hover { background: rgba(255,255,255,0.12); }
-        .hamburger span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: white;
-            border-radius: 2px;
-            transition: transform 0.3s, opacity 0.3s;
-            transform-origin: center;
-        }
-        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+/* ── RESOURCES SECTION ── */
+.resources-section { padding: 7rem 4rem; background: var(--bg-dark); }
+.resources-inner { max-width: 1400px; margin: 0 auto; }
+.resources-section .section-label { color: var(--accent); }
+.resources-section .section-label::before { background: var(--accent); }
+.resources-section .section-title { color: #f4f1eb; }
+.resources-intro { font-size: 1rem; line-height: 1.8; color: rgba(244,241,235,0.55); max-width: 55ch; margin-bottom: 4rem; }
+.resources-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(124,191,158,0.1); border: 1px solid rgba(124,191,158,0.1); }
+.resource-card { background: rgba(255,255,255,0.03); padding: 2.2rem; transition: background 0.3s; }
+.resource-card:hover { background: rgba(124,191,158,0.08); }
+.rc-num { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; color: var(--accent); opacity: 0.5; margin-bottom: 1.2rem; }
+.rc-title { font-family: var(--serif); font-size: 1.25rem; color: #f4f1eb; margin-bottom: 0.8rem; line-height: 1.2; }
+.rc-desc { font-size: 0.83rem; line-height: 1.65; color: rgba(244,241,235,0.45); }
 
-        /* Mobile drawer */
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 64px;
-            left: 0;
-            right: 0;
-            background: var(--blue-deep);
-            padding: 1.5rem 2rem 2rem;
-            z-index: 999;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            transform: translateY(-10px);
-            opacity: 0;
-            pointer-events: none;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-        .mobile-menu.open {
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: all;
-        }
-        .mobile-menu ul { list-style: none; }
-        .mobile-menu ul li { border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .mobile-menu ul li:last-child { border-bottom: none; }
-        .mobile-menu ul a {
-            display: block;
-            padding: 1rem 0;
-            color: rgba(255,255,255,0.9);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.05rem;
-            transition: color 0.2s;
-        }
-        .mobile-menu ul a:hover { color: var(--blue-accent); }
+/* ── CTA ── */
+.cta-strip { background: var(--water); padding: 5rem 4rem; text-align: center; position: relative; overflow: hidden; }
+.cta-strip::before { content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px; border-radius: 50%; background: rgba(255,255,255,0.05); pointer-events: none; }
+.cta-strip h2 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3.5rem); color: #fff; margin-bottom: 1rem; position: relative; }
+.cta-strip p { font-size: 1.05rem; color: rgba(255,255,255,0.75); margin-bottom: 2.5rem; position: relative; }
+.btn-primary { background: #fff; color: var(--water); padding: 0.85rem 2.2rem; font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; display: inline-block; transition: background 0.2s; }
+.btn-primary:hover { background: rgba(255,255,255,0.9); }
 
-        /* ── PAGE HERO ── */
-        .page-hero {
-            background: linear-gradient(155deg, var(--blue-deep) 0%, #0055aa 60%, #0077ee 100%);
-            color: white;
-            padding: 120px 2rem 70px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .page-hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-        .page-hero h1 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 3.2rem;
-            font-weight: 400;
-            margin-bottom: 0.75rem;
-            position: relative;
-        }
-        .page-hero p {
-            font-size: 1.15rem;
-            opacity: 0.88;
-            max-width: 520px;
-            margin: 0 auto;
-            position: relative;
-        }
+/* ── FOOTER ── */
+footer { background: var(--bg-dark); color: rgba(244,241,235,0.35); padding: 2.5rem 4rem; display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.05em; border-top: 1px solid rgba(124,191,158,0.08); }
+.footer-logo { color: var(--accent); font-size: 0.85rem; }
+footer a { color: rgba(244,241,235,0.35); text-decoration: none; }
+footer a:hover { color: var(--accent); }
 
-        /* ── MAIN LAYOUT ── */
-        .support-main {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 60px 2rem 80px;
-            display: grid;
-            grid-template-columns: 220px 1fr;
-            gap: 3rem;
-            align-items: start;
-        }
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: none; }
 
-        /* ── STICKY SIDEBAR ── */
-        .sidebar {
-            position: sticky;
-            top: 84px;
-        }
-        .sidebar-nav {
-            background: var(--bg-soft);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 1.25rem;
-            list-style: none;
-        }
-        .sidebar-nav li { margin-bottom: 2px; }
-        .sidebar-nav a {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.6rem 0.85rem;
-            border-radius: 8px;
-            color: var(--text-mid);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: background 0.2s, color 0.2s;
-        }
-        .sidebar-nav a:hover {
-            background: var(--blue-light);
-            color: var(--blue-mid);
-        }
-        .sidebar-nav a .s-icon { font-size: 1rem; }
-
-        /* ── SECTIONS ── */
-        .support-content { min-width: 0; }
-
-        .support-section {
-            margin-bottom: 3rem;
-            scroll-margin-top: 84px;
-        }
-
-        .section-label {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1.25rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid var(--border);
-        }
-        .section-label .icon {
-            width: 40px;
-            height: 40px;
-            background: var(--blue-light);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-        }
-        .section-label h2 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.65rem;
-            font-weight: 400;
-            color: var(--blue-deep);
-        }
-
-        /* ── CONTACT CARD ── */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        .contact-item {
-            background: var(--bg-soft);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.25rem 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            transition: box-shadow 0.2s, border-color 0.2s;
-        }
-        .contact-item:hover {
-            box-shadow: var(--card-shadow-hover);
-            border-color: var(--blue-mid);
-        }
-        .contact-item .ci-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--blue-mid);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-        }
-        .contact-item .ci-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-light);
-            margin-bottom: 2px;
-        }
-        .contact-item .ci-value {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-        .contact-item .ci-value a {
-            color: var(--blue-mid);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .contact-item .ci-value a:hover {
-            color: var(--blue-deep);
-            text-decoration: underline;
-        }
-
-        /* ── LINK LIST (guides, downloads, troubleshooting) ── */
-        .link-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-        }
-        .link-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--bg-soft);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1rem 1.25rem;
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            font-size: 0.97rem;
-            transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-        }
-        .link-item:hover {
-            background: var(--blue-light);
-            border-color: var(--blue-mid);
-            box-shadow: var(--card-shadow);
-            transform: translateX(4px);
-            color: var(--blue-deep);
-        }
-        .link-item .li-left {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        .link-item .li-tag {
-            font-size: 1.1rem;
-        }
-        .link-item .arrow {
-            font-size: 0.85rem;
-            color: var(--blue-mid);
-            opacity: 0;
-            transition: opacity 0.2s, transform 0.2s;
-        }
-        .link-item:hover .arrow {
-            opacity: 1;
-            transform: translateX(3px);
-        }
-
-        /* Troubleshooting has warning tint */
-        .link-item.warn {
-            border-left: 3px solid #f0a500;
-        }
-        .link-item.warn:hover {
-            background: #fffbf0;
-            border-color: #f0a500;
-        }
-
-        /* Downloads have green tint */
-        .link-item.dl {
-            border-left: 3px solid var(--success);
-        }
-        .link-item.dl:hover {
-            background: #f0faf7;
-            border-color: var(--success);
-        }
-
-        /* ── FAQ ── */
-        .faq-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-        .faq-item {
-            background: var(--bg-soft);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        .faq-question {
-            width: 100%;
-            background: none;
-            border: none;
-            padding: 1.1rem 1.4rem;
-            text-align: left;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.98rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            transition: background 0.2s;
-        }
-        .faq-question:hover { background: var(--blue-light); }
-        .faq-chevron {
-            font-size: 0.8rem;
-            color: var(--blue-mid);
-            transition: transform 0.3s;
-            flex-shrink: 0;
-        }
-        .faq-item.open .faq-chevron { transform: rotate(180deg); }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.35s ease, padding 0.35s ease;
-        }
-        .faq-item.open .faq-answer { max-height: 300px; }
-        .faq-answer-inner {
-            padding: 0 1.4rem 1.2rem;
-            color: var(--text-mid);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            border-top: 1px solid var(--border);
-            padding-top: 1rem;
-        }
-
-        /* ── CTA ── */
-        .cta-bar {
-            background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-mid) 100%);
-            color: white;
-            text-align: center;
-            padding: 70px 2rem;
-        }
-        .cta-bar h2 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 2.4rem;
-            font-weight: 400;
-            margin-bottom: 0.75rem;
-        }
-        .cta-bar p {
-            font-size: 1.1rem;
-            opacity: 0.88;
-            margin-bottom: 2rem;
-        }
-        .cta-btn {
-            display: inline-block;
-            background: white;
-            color: var(--blue-deep);
-            padding: 0.9rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: transform 0.25s, box-shadow 0.25s;
-        }
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-        }
-
-        /* ── FOOTER ── */
-        footer {
-            background: #0f1c2e;
-            color: rgba(255,255,255,0.7);
-            text-align: center;
-            padding: 1.75rem 2rem;
-            font-size: 0.9rem;
-        }
-        footer p { margin: 0.3rem 0; }
-        footer a { color: var(--blue-accent); text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
-
-        /* ── RESPONSIVE ── */
-        @media (max-width: 900px) {
-            .support-main {
-                grid-template-columns: 1fr;
-            }
-            .sidebar {
-                display: none;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .nav-links { display: none; }
-            .hamburger { display: flex; }
-            .mobile-menu { display: block; }
-
-            .page-hero h1 { font-size: 2.2rem; }
-            .contact-grid { grid-template-columns: 1fr; }
-            .support-main { padding: 40px 1.25rem 60px; }
-        }
-
-        @media (min-width: 641px) {
-            .hamburger { display: none; }
-            .nav-links { display: flex; }
-        }
-    </style>
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .page-header { padding: 8rem 1.5rem 4rem; }
+  .contact-section, .faq-section, .resources-section, .cta-strip { padding: 4rem 1.5rem; }
+  .contact-inner, .faq-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .contact-cards { grid-template-columns: 1fr; }
+  .resources-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 0.8rem; text-align: center; padding: 2rem 1.5rem; }
+}
+</style>
 </head>
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <nav>
-            <a href="index.html" class="logo">exact<span>H2O</span></a>
-            <ul class="nav-links">
-                <li><a href="features.html">Features</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="support.html" class="active">Support</a></li>
-                <li><a href="quote.html">Get Quote</a></li>
-            </ul>
-            <button class="hamburger" id="hamburger" aria-label="Open menu">
-                <span></span><span></span><span></span>
-            </button>
-        </nav>
-    </header>
+<nav>
+  <a href="index.html" class="nav-logo">exact<span>H</span>2<span>O</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="applications.html">Applications</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="support.html" class="active">Support</a></li>
+    <li><a href="quote.html" class="nav-cta">Get Quote</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mob-close" onclick="toggleMenu()">✕ close</span>
+  <a href="index.html" onclick="toggleMenu()">Home</a>
+  <a href="applications.html" onclick="toggleMenu()">Applications</a>
+  <a href="about.html" onclick="toggleMenu()">About Us</a>
+  <a href="support.html" onclick="toggleMenu()">Support</a>
+  <a href="quote.html" onclick="toggleMenu()">Get Quote</a>
+</div>
 
-    <!-- MOBILE MENU -->
-    <div class="mobile-menu" id="mobileMenu">
-        <ul>
-            <li><a href="features.html">Features</a></li>
-            <li><a href="applications.html">Applications</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="support.html">Support</a></li>
-            <li><a href="quote.html">Get Quote</a></li>
-        </ul>
+<div class="page-header">
+  <div class="ph-eyebrow">Support</div>
+  <h1>We're here to<br><em>help you</em> succeed</h1>
+  <p class="ph-sub">From installation to data analysis, our team provides hands-on support from people who understand both the biology and the engineering.</p>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-section">
+  <div class="contact-inner reveal">
+    <div>
+      <div class="section-label">Get in Touch</div>
+      <h2 class="section-title">How can we<br>help you?</h2>
+      <p class="contact-desc">Whether you're troubleshooting an installation, planning a new experiment, or just have a question — reach out. We respond within one business day.</p>
     </div>
+    <div class="contact-cards">
+      <div class="contact-card">
+        <svg class="cc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <rect x="4" y="10" width="36" height="26" rx="3"/>
+          <path d="M4 14 L22 26 L40 14"/>
+        </svg>
+        <h3 class="cc-title">Email Support</h3>
+        <p class="cc-desc">For technical questions, sensor troubleshooting, calibration help, and general inquiries. We aim to respond within 24 hours on business days.</p>
+        <a href="mailto:bslbinod@gmail.com" class="cc-link">bslbinod@gmail.com</a>
+      </div>
+      <div class="contact-card">
+        <svg class="cc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <path d="M22 4 C12 4 4 12 4 22 C4 32 12 40 22 40 C32 40 40 32 40 22 C40 12 32 4 22 4Z"/>
+          <path d="M22 22 L22 14"/>
+          <circle cx="22" cy="28" r="1.5" fill="currentColor" stroke="none"/>
+        </svg>
+        <h3 class="cc-title">Quote & Consultation</h3>
+        <p class="cc-desc">Not sure what configuration you need? Request a free consultation. We'll review your facility, crop, and research goals before recommending a system.</p>
+        <a href="quote.html" class="cc-link">Request a free quote →</a>
+      </div>
+      <div class="contact-card">
+        <svg class="cc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="22" cy="22" r="18"/>
+          <path d="M15 18 C15 14 18 12 22 12 C26 12 29 14 29 18 C29 22 25 24 22 26"/>
+          <circle cx="22" cy="32" r="1.5" fill="currentColor" stroke="none"/>
+        </svg>
+        <h3 class="cc-title">Technical Documentation</h3>
+        <p class="cc-desc">Installation guides, sensor calibration procedures, API documentation, and substrate-specific calibration coefficient tables are available on request.</p>
+        <a href="mailto:bslbinod@gmail.com?subject=Documentation Request" class="cc-link">Request documentation →</a>
+      </div>
+      <div class="contact-card">
+        <svg class="cc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <path d="M8 36 C8 28 36 28 36 36"/>
+          <circle cx="22" cy="16" r="8"/>
+          <circle cx="10" cy="18" r="5"/>
+          <circle cx="34" cy="18" r="5"/>
+        </svg>
+        <h3 class="cc-title">On-site Training</h3>
+        <p class="cc-desc">For larger deployments, we offer on-site installation support and staff training to get your team fully operational with exactH2O from day one.</p>
+        <a href="mailto:bslbinod@gmail.com?subject=On-site Training Inquiry" class="cc-link">Enquire about training →</a>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- HERO -->
-    <section class="page-hero">
-        <h1>Support</h1>
-        <p>Everything you need to install, configure, and get the most out of your exactH2O system.</p>
-    </section>
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="faq-inner reveal">
+    <div>
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Common<br>questions</h2>
+      <p style="font-size:0.9rem;line-height:1.75;opacity:0.6;margin-top:0.5rem;">Don't see your question? Email us and we'll answer within 24 hours.</p>
+    </div>
+    <div class="faq-list">
 
-    <!-- MAIN CONTENT -->
-    <div class="support-main">
-
-        <!-- SIDEBAR -->
-        <aside class="sidebar">
-            <ul class="sidebar-nav">
-                <li><a href="#technical-support"><span class="s-icon">📞</span> Technical Support</a></li>
-                <li><a href="#installation"><span class="s-icon">🔧</span> Installation Guides</a></li>
-                <li><a href="#troubleshooting"><span class="s-icon">⚠️</span> Troubleshooting</a></li>
-                <li><a href="#downloads"><span class="s-icon">📥</span> Downloads</a></li>
-                <li><a href="#faq"><span class="s-icon">💬</span> FAQ</a></li>
-            </ul>
-        </aside>
-
-        <!-- SECTIONS -->
-        <div class="support-content">
-
-            <!-- TECHNICAL SUPPORT -->
-            <section class="support-section" id="technical-support">
-                <div class="section-label">
-                    <div class="icon">📞</div>
-                    <h2>Technical Support</h2>
-                </div>
-                <div class="contact-grid">
-                    <div class="contact-item">
-                        <div class="ci-icon">✉️</div>
-                        <div>
-                            <div class="ci-label">Email</div>
-                            <div class="ci-value"><a href="mailto:bslbinod@gmail.com">bslbinod@gmail.com</a></div>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="ci-icon">📱</div>
-                        <div>
-                            <div class="ci-label">Phone</div>
-                            <div class="ci-value"><a href="tel:+15175551234">(517) 555-1234</a></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- INSTALLATION GUIDES -->
-            <section class="support-section" id="installation">
-                <div class="section-label">
-                    <div class="icon">🔧</div>
-                    <h2>Installation Guides</h2>
-                </div>
-                <div class="link-list">
-                    <a href="guides/controller-installation.html" class="link-item">
-                        <span class="li-left">
-                            <span class="li-tag">🖥️</span>
-                            Controller Installation
-                        </span>
-                        <span class="arrow">→</span>
-                    </a>
-                    <a href="guides/soil-moisture-sensor-setup.html" class="link-item">
-                        <span class="li-left">
-                            <span class="li-tag">🌱</span>
-                            Soil Moisture Sensor Setup
-                        </span>
-                        <span class="arrow">→</span>
-                    </a>
-                </div>
-            </section>
-
-            <!-- TROUBLESHOOTING -->
-            <section class="support-section" id="troubleshooting">
-                <div class="section-label">
-                    <div class="icon">⚠️</div>
-                    <h2>Troubleshooting</h2>
-                </div>
-                <div class="link-list">
-                    <a href="troubleshooting/sensor-not-detected.html" class="link-item warn">
-                        <span class="li-left">
-                            <span class="li-tag">🔍</span>
-                            Sensor Not Detected
-                        </span>
-                        <span class="arrow">→</span>
-                    </a>
-                    <a href="troubleshooting/valve-not-activating.html" class="link-item warn">
-                        <span class="li-left">
-                            <span class="li-tag">🚿</span>
-                            Irrigation Valve Not Activating
-                        </span>
-                        <span class="arrow">→</span>
-                    </a>
-                    <a href="troubleshooting/wifi-connection-problems.html" class="link-item warn">
-                        <span class="li-left">
-                            <span class="li-tag">📶</span>
-                            WiFi Connection Problems
-                        </span>
-                        <span class="arrow">→</span>
-                    </a>
-                </div>
-            </section>
-
-            <!-- DOWNLOADS -->
-            <section class="support-section" id="downloads">
-                <div class="section-label">
-                    <div class="icon">📥</div>
-                    <h2>Downloads</h2>
-                </div>
-                <div class="link-list">
-                    <a href="downloads/user-manuals.pdf" class="link-item dl">
-                        <span class="li-left">
-                            <span class="li-tag">📄</span>
-                            User Manuals
-                        </span>
-                        <span class="arrow">↓</span>
-                    </a>
-                    <a href="downloads/firmware-updates.html" class="link-item dl">
-                        <span class="li-left">
-                            <span class="li-tag">⚙️</span>
-                            Firmware Updates
-                        </span>
-                        <span class="arrow">↓</span>
-                    </a>
-                </div>
-            </section>
-
-            <!-- FAQ -->
-            <section class="support-section" id="faq">
-                <div class="section-label">
-                    <div class="icon">💬</div>
-                    <h2>FAQ</h2>
-                </div>
-                <div class="faq-list">
-
-                    <div class="faq-item">
-                        <button class="faq-question" onclick="toggleFaq(this)">
-                            How deep should soil sensors be installed?
-                            <span class="faq-chevron">▼</span>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
-                                Soil moisture sensors should generally be installed at the root zone depth of your crop. For most annual crops and vegetables, 6–8 inches (15–20 cm) is ideal. For deeper-rooted plants or perennials, a second sensor at 12–18 inches can be beneficial. Always install sensors horizontally or at a slight angle to ensure full contact with undisturbed soil and avoid air pockets that can skew readings.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-question" onclick="toggleFaq(this)">
-                            Does the system work without internet?
-                            <span class="faq-chevron">▼</span>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
-                                Yes. The exactH2O controller stores all irrigation programs locally and will continue to run scheduled irrigation even without an active internet connection. Internet connectivity is only required for remote monitoring, cloud data sync, firmware updates, and access via the mobile app. In offline mode, the system operates fully autonomously based on your saved programs and local sensor readings.
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
+      <div class="faq-item open">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          What substrates is exactH2O calibrated for?
+          <span class="faq-toggle">+</span>
         </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">exactH2O sensors work in peat, perlite, rockwool, coco coir, field soil, and custom substrate mixes. Each substrate has distinct dielectric properties, so we provide substrate-specific calibration coefficients that you enter during setup. Custom calibration for novel substrates is available on request.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          How many sensors and zones can one system support?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">The base system supports up to 16 sensor nodes. The mesh network architecture allows expansion to 400+ sensors by adding gateway nodes — no new wiring infrastructure is needed. Zones can be any logical grouping of sensors with shared irrigation targets.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          Can I export data for use in R or Python?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes. All sensor data is exportable as CSV or JSON directly from the web dashboard. A REST API is also available for live data integration into custom pipelines, enabling real-time connection to R, Python, JMP, or any data analysis environment.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          What happens if a sensor fails during an experiment?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">The system monitors sensor health continuously and triggers configurable email or SMS alerts when a reading falls outside expected bounds or a sensor stops reporting. This gives you time to intervene before experimental integrity is compromised. Failed sensors can be hot-swapped without interrupting other zones.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          Is exactH2O compatible with existing fertigation controllers?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes. exactH2O outputs standard control signals (relay-switched or 0–10V) compatible with most commercial fertigation controllers and solenoid valves. We can advise on integration with your existing equipment during the quote process.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          How long does installation typically take?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">A standard 16-sensor greenhouse deployment typically takes 4–8 hours including sensor placement, network configuration, and dashboard setup. Larger deployments are usually completed over 1–2 days. We provide installation guides and offer on-site support for complex setups.</div>
+        </div>
+      </div>
+
     </div>
+  </div>
+</div>
 
-    <!-- CTA -->
-    <section class="cta-bar">
-        <h2>Still Need Help?</h2>
-        <p>Our team is ready to assist. Reach out and we'll get your system running perfectly.</p>
-        <a href="mailto:bslbinod@gmail.com" class="cta-btn">Contact Support</a>
-    </section>
+<!-- RESOURCES -->
+<div class="resources-section reveal">
+  <div class="resources-inner">
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:end;margin-bottom:4rem;padding-bottom:3rem;border-bottom:1px solid rgba(124,191,158,0.1);">
+      <div>
+        <div class="section-label">Resources</div>
+        <h2 class="section-title">Documentation &<br>guides</h2>
+      </div>
+      <p class="resources-intro">All technical documentation is available to customers on request. New guides are added as the system evolves.</p>
+    </div>
+    <div class="resources-grid">
+      <div class="resource-card">
+        <div class="rc-num">01 —</div>
+        <h3 class="rc-title">Installation Guide</h3>
+        <p class="rc-desc">Step-by-step hardware installation for greenhouse benches, pot arrays, raised beds, and field plots. Includes sensor placement best practices for each substrate type.</p>
+      </div>
+      <div class="resource-card">
+        <div class="rc-num">02 —</div>
+        <h3 class="rc-title">Calibration Handbook</h3>
+        <p class="rc-desc">Substrate-specific VWC calibration coefficients, field calibration procedures, and guidance for validating sensor accuracy against gravimetric reference measurements.</p>
+      </div>
+      <div class="resource-card">
+        <div class="rc-num">03 —</div>
+        <h3 class="rc-title">Dashboard User Guide</h3>
+        <p class="rc-desc">Complete reference for the web dashboard: zone setup, irrigation scheduling, threshold alerts, data export, and multi-user access management.</p>
+      </div>
+      <div class="resource-card">
+        <div class="rc-num">04 —</div>
+        <h3 class="rc-title">REST API Reference</h3>
+        <p class="rc-desc">Full API documentation for integrating exactH2O live data streams into custom analysis pipelines, automated reporting systems, or third-party platforms.</p>
+      </div>
+      <div class="resource-card">
+        <div class="rc-num">05 —</div>
+        <h3 class="rc-title">Troubleshooting Guide</h3>
+        <p class="rc-desc">Diagnosis and resolution procedures for common sensor issues, network connectivity problems, irrigation valve faults, and data anomalies.</p>
+      </div>
+      <div class="resource-card">
+        <div class="rc-num">06 —</div>
+        <h3 class="rc-title">Research Protocol Templates</h3>
+        <p class="rc-desc">Ready-to-use methods templates for drought stress experiments, greenhouse trials, and field studies — written to meet peer-review standards for methods reporting.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2024 exactH2O. All rights reserved.</p>
-        <p>Contact: <a href="mailto:bslbinod@gmail.com">bslbinod@gmail.com</a></p>
-    </footer>
+<!-- CTA -->
+<div class="cta-strip reveal">
+  <h2>Ready to get started?</h2>
+  <p>Contact us today and we'll find the right exactH2O configuration for your needs</p>
+  <a href="quote.html" class="btn-primary">Request a Quote</a>
+</div>
 
-    <script>
-        // Hamburger toggle
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
+<footer>
+  <div class="footer-logo">exactH2O</div>
+  <div>Support · exacth2o.com</div>
+  <div><a href="mailto:bslbinod@gmail.com">bslbinod@gmail.com</a></div>
+</footer>
 
-        hamburger.addEventListener('click', () => {
-            const isOpen = hamburger.classList.toggle('open');
-            mobileMenu.classList.toggle('open', isOpen);
-        });
-
-        // Close menu on outside click
-        document.addEventListener('click', (e) => {
-            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
-                hamburger.classList.remove('open');
-                mobileMenu.classList.remove('open');
-            }
-        });
-
-        // FAQ accordion
-        function toggleFaq(btn) {
-            const item = btn.closest('.faq-item');
-            const isOpen = item.classList.contains('open');
-            // close all
-            document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-            // open clicked if it wasn't open
-            if (!isOpen) item.classList.add('open');
-        }
-
-        // Smooth scroll for sidebar links
-        document.querySelectorAll('.sidebar-nav a').forEach(link => {
-            link.addEventListener('click', e => {
-                e.preventDefault();
-                const target = document.querySelector(link.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-    </script>
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('active');
+    document.getElementById('hamburger').classList.toggle('active');
+  }
+  function toggleFAQ(el) {
+    const item = el.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+  const revealEls = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
-
