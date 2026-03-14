@@ -1,741 +1,593 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>exactH2O - Precision Automatic Irrigation System</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            letter-spacing: -1px;
-            text-decoration: none;
-            color: white;
-            transition: opacity 0.3s;
-        }
-
-        .logo:hover {
-            opacity: 0.8;
-        }
-
-        .logo span {
-            color: #66d9ff;
-        }
-
-        /* Hamburger Menu */
-        .hamburger {
-            width: 35px;
-            height: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .hamburger span {
-            width: 100%;
-            height: 4px;
-            background-color: white;
-            border-radius: 2px;
-            transition: all 0.3s;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(8px, -8px);
-        }
-
-        /* Dropdown Menu */
-        .nav-menu {
-            position: absolute;
-            top: 100%;
-            right: 2rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            overflow: hidden;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s;
-            min-width: 200px;
-        }
-
-        .nav-menu.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .nav-menu ul {
-            list-style: none;
-        }
-
-        .nav-menu li {
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .nav-menu li:last-child {
-            border-bottom: none;
-        }
-
-        .nav-menu a {
-            display: block;
-            padding: 1rem 1.5rem;
-            color: #0066cc;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background 0.3s;
-        }
-
-        .nav-menu a:hover {
-            background: #f0f0f0;
-        }
-
-        /* Hero Section with Slideshow */
-        .hero {
-            background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
-            color: white;
-            padding: 100px 2rem 60px;
-            position: relative;
-            overflow: hidden;
-            min-height: calc(100vh - 60px);
-            margin-top: 60px;
-            display: flex;
-            align-items: center;
-        }
-
-        .hero-container {
-            max-width: 1800px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 3rem;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-content {
-            padding-right: 2rem;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            opacity: 0.95;
-            animation: fadeInUp 0.8s ease 0.2s backwards;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: white;
-            color: #0066cc;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: fadeInUp 0.8s ease 0.4s backwards;
-            margin: 0.5rem;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .cta-button.secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .cta-button.secondary:hover {
-            background: white;
-            color: #0066cc;
-        }
-
-        /* Slideshow */
-        .slideshow-container {
-            position: relative;
-            width: 100%;
-            max-width: 1000px;
-            height: 500px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: fadeInUp 0.8s ease 0.6s backwards;
-        }
-
-        .slide {
-            display: none;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            animation: fadeIn 1s;
-        }
-
-        .slide.active {
-            display: block;
-        }
-
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .slide-placeholder {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            font-size: 1.2rem;
-            color: #0066cc;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        /* Slideshow Navigation */
-        .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(255,255,255,0.8);
-            color: #0066cc;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            z-index: 10;
-            transition: background 0.3s, transform 0.3s;
-        }
-
-        .prev:hover, .next:hover {
-            background: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .prev {
-            left: 10px;
-        }
-
-        .next {
-            right: 10px;
-        }
-
-        /* Slide Indicators */
-        .slide-indicators {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-        }
-
-        .indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.5);
-            cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
-        }
-
-        .indicator.active {
-            background: white;
-            transform: scale(1.3);
-        }
-
-        /* Quick Features Section */
-        .quick-features {
-            padding: 80px 2rem;
-            background: #f8f9fa;
-        }
-
-        .quick-features h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #0066cc;
-        }
-
-        .quick-features p {
-            text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
-            color: #666;
-        }
-
-        .features-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 0;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            overflow: hidden;
-            position: relative;
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-
-        .feature-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            flex: 1;
-        }
-
-        .feature-text {
-            padding: 1.5rem;
-            background: white;
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .feature-card h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #0066cc;
-        }
-
-        .feature-card p {
-            font-size: 1rem;
-            color: #666;
-        }
-
-        /* Modal for enlarged image */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            border-radius: 10px;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 30px;
-            right: 50px;
-            color: white;
-            font-size: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .modal-close:hover {
-            color: #66d9ff;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 80px 2rem;
-            background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
-            color: white;
-            text-align: center;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-section p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-
-        /* Footer */
-        footer {
-            background: #1a1a1a;
-            color: white;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        footer p {
-            opacity: 0.8;
-            margin: 0.5rem 0;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-content {
-                padding-right: 0;
-            }
-
-            .slideshow-container {
-                margin: 0 auto;
-            }
-
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .logo {
-                font-size: 1.5rem;
-            }
-
-            .slideshow-container {
-                height: 350px;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>exactH2O — Precision Irrigation System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4f1eb;
+  --bg-dark: #0e1a14;
+  --ink: #0e1a14;
+  --water: #1a6b4a;
+  --water-light: #2e9e6e;
+  --water-pale: #d4ede3;
+  --accent: #7cbf9e;
+  --amber: #c8853a;
+  --mist: #e8e3d8;
+  --rule: rgba(14,26,20,0.15);
+  --card-bg: #ffffff;
+  --serif: 'DM Serif Display', serif;
+  --mono: 'DM Mono', monospace;
+  --sans: 'Instrument Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.6; overflow-x: hidden; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.1rem 3rem;
+  background: rgba(14,26,20,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(124,191,158,0.15);
+}
+.nav-logo {
+  font-family: var(--mono); font-size: 1.15rem; font-weight: 500;
+  letter-spacing: -0.02em; color: var(--accent); text-decoration: none;
+  transition: opacity 0.2s;
+}
+.nav-logo:hover { opacity: 0.75; }
+.nav-logo span { color: rgba(244,241,235,0.5); }
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a {
+  font-family: var(--mono); font-size: 0.72rem; font-weight: 400;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(244,241,235,0.55); text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--accent); }
+.nav-cta {
+  background: var(--water); color: #fff !important;
+  padding: 0.45rem 1.1rem; border-radius: 2px;
+  font-size: 0.7rem !important; letter-spacing: 0.1em !important;
+}
+.nav-cta:hover { background: var(--water-light); color: #fff !important; opacity: 1 !important; }
+
+/* Hamburger */
+.hamburger {
+  display: none; flex-direction: column; justify-content: space-between;
+  width: 28px; height: 20px; cursor: pointer; z-index: 300;
+}
+.hamburger span {
+  width: 100%; height: 2px; background: var(--accent);
+  border-radius: 2px; transition: all 0.3s;
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px,6px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px,-6px); }
+
+/* Mobile menu */
+.mobile-menu {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--bg-dark); z-index: 250; flex-direction: column;
+  align-items: center; justify-content: center; gap: 2rem;
+}
+.mobile-menu.active { display: flex; }
+.mobile-menu a {
+  font-family: var(--serif); font-size: 2.2rem; color: var(--accent);
+  text-decoration: none; transition: opacity 0.2s;
+}
+.mobile-menu a:hover { opacity: 0.7; }
+.mobile-menu .mob-close {
+  position: absolute; top: 1.5rem; right: 2rem;
+  font-family: var(--mono); font-size: 0.8rem; color: rgba(244,241,235,0.4);
+  cursor: pointer; letter-spacing: 0.1em;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: var(--bg-dark);
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
+}
+.hero-left {
+  padding: 10rem 4rem 5rem;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  position: relative; z-index: 2;
+}
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem;
+}
+.hero-eyebrow::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--accent); }
+.hero-title {
+  font-family: var(--serif); font-size: clamp(3.5rem, 5vw, 5.8rem);
+  line-height: 1.0; letter-spacing: -0.02em; color: #f4f1eb; margin-bottom: 2rem;
+}
+.hero-title em { font-style: italic; color: var(--accent); }
+.hero-intro {
+  font-size: 1rem; line-height: 1.8; color: rgba(244,241,235,0.6);
+  max-width: 44ch; margin-bottom: 3rem;
+  border-left: 2px solid var(--water); padding-left: 1.25rem;
+}
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--water); color: #fff; padding: 0.85rem 2rem;
+  font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em;
+  text-transform: uppercase; text-decoration: none; border-radius: 2px;
+  transition: background 0.2s;
+}
+.btn-primary:hover { background: var(--water-light); }
+.btn-secondary {
+  background: transparent; color: var(--accent); padding: 0.85rem 2rem;
+  font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em;
+  text-transform: uppercase; text-decoration: none; border-radius: 2px;
+  border: 1px solid rgba(124,191,158,0.4); transition: border-color 0.2s, color 0.2s;
+}
+.btn-secondary:hover { border-color: var(--accent); color: #fff; }
+
+/* Hero stats bar */
+.hero-stats {
+  display: flex; gap: 3rem; margin-top: 3.5rem;
+  padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.08);
+}
+.hero-stat-num {
+  font-family: var(--serif); font-size: 2rem; color: var(--accent); line-height: 1;
+}
+.hero-stat-label {
+  font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: rgba(244,241,235,0.35); margin-top: 0.3rem;
+}
+
+/* Hero right panel */
+.hero-right { position: relative; overflow: hidden; background: #0a1510; }
+.hero-visual {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-slideshow { position: absolute; inset: 0; }
+.hero-slide {
+  position: absolute; inset: 0;
+  display: flex; align-items: flex-end; justify-content: flex-end;
+  padding: 2.5rem;
+  opacity: 0; transition: opacity 1.2s ease;
+}
+.hero-slide.active { opacity: 1; }
+.hero-slide img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; opacity: 0.45;
+}
+.hero-slide-placeholder {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.slide-info {
+  position: relative; z-index: 2;
+  background: rgba(10,21,16,0.75); border: 1px solid rgba(124,191,158,0.2);
+  padding: 1rem 1.4rem; backdrop-filter: blur(8px); border-radius: 2px;
+}
+.slide-info-tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.35rem; }
+.slide-info-val { font-family: var(--sans); font-size: 0.85rem; color: rgba(244,241,235,0.8); }
+
+/* Slide dots */
+.slide-dots {
+  position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 0.5rem; z-index: 10;
+}
+.slide-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(124,191,158,0.3); cursor: pointer; transition: background 0.3s;
+}
+.slide-dot.active { background: var(--accent); }
+
+/* ── FEATURES STRIP ── */
+.features-strip {
+  background: var(--bg); padding: 6rem 4rem;
+}
+.strip-inner { max-width: 1400px; margin: 0 auto; }
+.strip-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: end; }
+.section-label {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--water);
+  margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.7rem;
+}
+.section-label::before { content: ''; width: 1.5rem; height: 1px; background: var(--water); display: block; }
+.section-title {
+  font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3.2rem);
+  line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0;
+}
+.strip-desc { font-size: 1rem; line-height: 1.8; opacity: 0.6; padding-top: 0.5rem; }
+
+.features-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2px; background: var(--rule); border: 1px solid var(--rule);
+}
+.feat-card {
+  background: var(--bg); padding: 2.2rem; transition: background 0.3s;
+  display: flex; flex-direction: column;
+}
+.feat-card:hover { background: var(--water-pale); }
+.feat-card-img {
+  width: 100%; height: 150px; background: var(--mist);
+  border: 1px solid var(--rule); margin-bottom: 1.5rem;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; position: relative;
+}
+.feat-card-img img { width: 100%; height: 100%; object-fit: cover; }
+.feat-card-icon { color: var(--water); width: 36px; height: 36px; margin-bottom: 1rem; }
+.feat-card h3 {
+  font-family: var(--serif); font-size: 1.25rem; color: var(--ink);
+  margin-bottom: 0.6rem; line-height: 1.2;
+}
+.feat-card p { font-size: 0.85rem; line-height: 1.65; opacity: 0.6; }
+
+/* ── DARK BAND ── */
+.dark-band {
+  background: var(--bg-dark); padding: 5rem 4rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.dark-band-inner { max-width: 1400px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+.dark-band .section-label { color: var(--accent); }
+.dark-band .section-label::before { background: var(--accent); }
+.dark-band .section-title { color: #f4f1eb; }
+.dark-band p { font-size: 0.95rem; line-height: 1.8; color: rgba(244,241,235,0.55); margin-top: 1.2rem; }
+.dark-band-visual { position: relative; }
+.data-widget {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(124,191,158,0.15);
+  border-radius: 4px; padding: 2rem; font-family: var(--mono);
+}
+.dw-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.9rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.78rem;
+}
+.dw-row:last-child { border-bottom: none; }
+.dw-label { color: rgba(244,241,235,0.4); letter-spacing: 0.06em; }
+.dw-val { color: var(--accent); font-weight: 500; }
+.dw-val.warn { color: #c8853a; }
+.dw-val.ok { color: #7cbf9e; }
+.dw-header {
+  font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(244,241,235,0.25); margin-bottom: 1.2rem; padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ── CTA STRIP ── */
+.cta-strip {
+  background: var(--water); padding: 5rem 4rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-strip::before {
+  content: ''; position: absolute; top: -80px; right: -80px;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: rgba(255,255,255,0.05); pointer-events: none;
+}
+.cta-strip h2 {
+  font-family: var(--serif); font-size: clamp(2rem, 4vw, 3.5rem);
+  color: #fff; margin-bottom: 1rem; position: relative;
+}
+.cta-strip p { font-size: 1.05rem; color: rgba(255,255,255,0.75); margin-bottom: 2.5rem; position: relative; }
+.cta-strip .btn-primary { background: #fff; color: var(--water); font-size: 0.8rem; }
+.cta-strip .btn-primary:hover { background: rgba(255,255,255,0.9); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg-dark); color: rgba(244,241,235,0.35);
+  padding: 2.5rem 4rem; display: flex;
+  justify-content: space-between; align-items: center;
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.05em;
+  border-top: 1px solid rgba(124,191,158,0.08);
+}
+.footer-logo { color: var(--accent); font-size: 0.85rem; }
+footer a { color: rgba(244,241,235,0.35); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .strip-header { grid-template-columns: 1fr; gap: 1rem; }
+}
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-left { padding: 8rem 1.5rem 4rem; }
+  .features-strip, .dark-band, .cta-strip { padding: 4rem 1.5rem; }
+  .features-grid { grid-template-columns: 1fr; }
+  .dark-band-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-stats { gap: 2rem; flex-wrap: wrap; }
+  footer { flex-direction: column; gap: 0.8rem; text-align: center; padding: 2rem 1.5rem; }
+}
+</style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html" class="logo">exact<span>H2O</span></a>
-            
-            <div class="hamburger" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
 
-            <div class="nav-menu" id="navMenu">
-                <ul>
-                    <li><a href="applications.html">Applications</a></li>
-                    <li><a href="support.html">support</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="quote.html">Get Quote</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">exact<span>H</span>2<span>O</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="applications.html">Applications</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="support.html">Support</a></li>
+    <li><a href="quote.html" class="nav-cta">Get Quote</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
 
-    <section class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1>Precision Irrigation for Research & High-Value Crops</h1>
-                <p>Advanced sensor-based irrigation control with web dashboard monitoring. Optimize water usage, enhance research accuracy, and maximize crop yields.</p>
-                <a href="quote.html" class="cta-button">Request a Quote</a>
-                <a href="applications.html" class="cta-button secondary">Learn More</a>
-            </div>
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mob-close" onclick="toggleMenu()">✕ close</span>
+  <a href="index.html" onclick="toggleMenu()">Home</a>
+  <a href="applications.html" onclick="toggleMenu()">Applications</a>
+  <a href="about.html" onclick="toggleMenu()">About Us</a>
+  <a href="support.html" onclick="toggleMenu()">Support</a>
+  <a href="quote.html" onclick="toggleMenu()">Get Quote</a>
+</div>
 
-            <div class="slideshow-container">
-                <!-- Slide 1 -->
-                <div class="slide active">
-                    <img src="product1.jpg" alt="exactH2O System" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="slide-placeholder" style="display:none;">
-                        📸<br><br>Product Image 1<br>Upload as "product1.jpg"
-                    </div>
-                </div>
-
-                <!-- Slide 2 -->
-                <div class="slide">
-                    <img src="product2.jpg" alt="Dashboard Interface" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="slide-placeholder" style="display:none;">
-                        📸<br><br>Product Image 2<br>Upload as "product2.jpg"
-                    </div>
-                </div>
-
-                <!-- Slide 3 -->
-                <div class="slide">
-                    <img src="product3.jpg" alt="Sensor Integration" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="slide-placeholder" style="display:none;">
-                        📸<br><br>Product Image 3<br>Upload as "product3.jpg"
-                    </div>
-                </div>
-
-                <!-- Slide 4 -->
-                <div class="slide">
-                    <img src="product4.jpg" alt="Field Installation" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="slide-placeholder" style="display:none;">
-                        📸<br><br>Product Image 4<br>Upload as "product4.jpg"
-                    </div>
-                </div>
-
-                <!-- Slide 5 -->
-                <div class="slide">
-                    <img src="product5.jpg" alt="Control System" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="slide-placeholder" style="display:none;">
-                        📸<br><br>Product Image 5<br>Upload as "product5.jpg"
-                    </div>
-                </div>
-
-                <!-- Slide 6 -->
-                <div class="slide">
-                    <img src="product6.jpg" alt="Control System" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="slide-placeholder" style="display:none;">
-                        📸<br><br>Product Image 6<br>Upload as "product6.jpg"
-                    </div>
-                </div>
-
-                <!-- Navigation Arrows -->
-                <a class="prev" onclick="changeSlide(-1)">❮</a>
-                <a class="next" onclick="changeSlide(1)">❯</a>
-
-                <!-- Indicators -->
-                <div class="slide-indicators">
-                    <span class="indicator active" onclick="currentSlide(0)"></span>
-                    <span class="indicator" onclick="currentSlide(1)"></span>
-                    <span class="indicator" onclick="currentSlide(2)"></span>
-                    <span class="indicator" onclick="currentSlide(3)"></span>
-                    <span class="indicator" onclick="currentSlide(4)"></span>
-                    <span class="indicator" onclick="currentSlide(5)"></span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="quick-features">
-        <h2>Why exactH2O?</h2>
-        <p>Intelligent irrigation technology designed for precision and reliability</p>
-        <div class="features-grid">
-            <div class="feature-card scheduling" onclick="openModal('scheduling.jpg')">
-                <div class="feature-text">
-                    <h3>Smart Scheduling</h3>
-                    <p>Automated irrigation based on real-time soil moisture data</p>
-                </div>
-                <img src="scheduling.jpg" alt="Smart Scheduling" class="feature-image" onerror="this.style.display='none';">
-            </div>
-            <div class="feature-card dashboard" onclick="openModal('dashboard.jpg')">
-                <div class="feature-text">
-                    <h3>Web Dashboard</h3>
-                    <p>Monitor and control from anywhere with cloud-based platform</p>
-                </div>
-                <img src="dashboard.jpg" alt="Web Dashboard" class="feature-image" onerror="this.style.display='none';">
-            </div>
-            <div class="feature-card sensor" onclick="openModal('sensor.jpg')">
-                <div class="feature-text">
-                    <h3>Sensor Integration</h3>
-                    <p>Accurate soil moisture and temperature monitoring</p>
-                </div>
-                <img src="sensor.jpg" alt="Sensor Integration" class="feature-image" onerror="this.style.display='none';">
-            </div>
-            <div class="feature-card scaling" onclick="openModal('scaling.jpg')">
-                <div class="feature-text">
-                    <h3>Easy Scaling</h3>
-                    <p>Seamlessly expand your irrigation system from a few pots to large operations with modular design</p>
-                </div>
-                <img src="scaling.jpg" alt="Easy Scaling" class="feature-image" onerror="this.style.display='none';">
-            </div>
-        </div>
-    </section>
-
-    <!-- Modal for enlarged images -->
-    <div id="imageModal" class="modal" onclick="closeModal()">
-        <span class="modal-close">&times;</span>
-        <img id="modalImage" class="modal-content">
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Precision Irrigation</div>
+    <h1 class="hero-title">Water <em>exactly</em><br>where it<br>needs to be</h1>
+    <p class="hero-intro">
+      Sensor-based irrigation control with real-time web monitoring. Built for plant researchers, greenhouse operators, and high-value crop producers who can't afford guesswork.
+    </p>
+    <div class="hero-btns">
+      <a href="quote.html" class="btn-primary">Request a Quote</a>
+      <a href="applications.html" class="btn-secondary">See Applications</a>
     </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">±0.1%</div>
+        <div class="hero-stat-label">VWC Accuracy</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">24/7</div>
+        <div class="hero-stat-label">Live Monitoring</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">96+</div>
+        <div class="hero-stat-label">Zones Supported</div>
+      </div>
+    </div>
+  </div>
 
-    <section class="cta-section">
-        <h2>Ready to Optimize Your Irrigation?</h2>
-        <p>Get a custom quote tailored to your specific needs</p>
-        <a href="quote.html" class="cta-button">Get Started Today</a>
-    </section>
+  <div class="hero-right">
+    <div class="hero-slideshow" id="heroSlideshow">
+      <!-- Slide 1 -->
+      <div class="hero-slide active">
+        <img src="product1.jpg" alt="exactH2O System" onerror="this.style.display='none'">
+        <div class="hero-slide-placeholder">
+          <svg viewBox="0 0 600 500" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="500" fill="#0a1510"/>
+            <circle cx="300" cy="250" r="200" stroke="#1a6b4a" stroke-width="0.5" stroke-dasharray="4 8" opacity="0.4"/>
+            <circle cx="300" cy="250" r="130" stroke="#1a6b4a" stroke-width="0.5" stroke-dasharray="2 6" opacity="0.3"/>
+            <circle cx="300" cy="250" r="65" stroke="#2e9e6e" stroke-width="1" opacity="0.5"/>
+            <circle cx="300" cy="250" r="12" fill="#1a6b4a" opacity="0.8"/>
+            <line x1="300" y1="50" x2="300" y2="450" stroke="#1a6b4a" stroke-width="0.5" opacity="0.3"/>
+            <line x1="100" y1="250" x2="500" y2="250" stroke="#1a6b4a" stroke-width="0.5" opacity="0.3"/>
+            <path d="M100 320 Q170 270 240 310 Q310 350 380 310 Q440 270 500 290" stroke="#2e9e6e" stroke-width="1.5" fill="none" opacity="0.6"/>
+            <circle cx="300" cy="50" r="5" fill="#2e9e6e" opacity="0.5"/>
+            <circle cx="300" cy="450" r="5" fill="#2e9e6e" opacity="0.5"/>
+            <circle cx="100" cy="250" r="5" fill="#2e9e6e" opacity="0.5"/>
+            <circle cx="500" cy="250" r="5" fill="#2e9e6e" opacity="0.5"/>
+            <text x="60" y="390" font-family="monospace" font-size="10" fill="#2e9e6e" opacity="0.5">VWC Sensor Network</text>
+          </svg>
+        </div>
+        <div class="slide-info">
+          <div class="slide-info-tag">Live · Sensor Array 01</div>
+          <div class="slide-info-val">VWC: 32.4% · Temp: 22.1°C</div>
+        </div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="hero-slide">
+        <img src="product2.jpg" alt="Dashboard" onerror="this.style.display='none'">
+        <div class="hero-slide-placeholder">
+          <svg viewBox="0 0 600 500" width="100%" height="100%" fill="none">
+            <rect width="600" height="500" fill="#0a1510"/>
+            <rect x="60" y="80" width="480" height="320" rx="4" fill="#0e1a14" stroke="#1a6b4a" stroke-width="0.5" opacity="0.8"/>
+            <rect x="80" y="100" width="440" height="30" rx="2" fill="#1a6b4a" opacity="0.2"/>
+            <text x="95" y="120" font-family="monospace" font-size="11" fill="#7cbf9e" opacity="0.8">exactH2O Dashboard · Live</text>
+            <rect x="80" y="145" width="130" height="60" rx="2" fill="#1a6b4a" opacity="0.15"/>
+            <text x="95" y="165" font-family="monospace" font-size="8" fill="#7cbf9e" opacity="0.5">ZONE 1 VWC</text>
+            <text x="95" y="192" font-family="monospace" font-size="22" fill="#7cbf9e">32.4%</text>
+            <rect x="225" y="145" width="130" height="60" rx="2" fill="#1a6b4a" opacity="0.15"/>
+            <text x="240" y="165" font-family="monospace" font-size="8" fill="#7cbf9e" opacity="0.5">ZONE 2 VWC</text>
+            <text x="240" y="192" font-family="monospace" font-size="22" fill="#c8853a">14.1%</text>
+            <rect x="370" y="145" width="130" height="60" rx="2" fill="#1a6b4a" opacity="0.15"/>
+            <text x="385" y="165" font-family="monospace" font-size="8" fill="#7cbf9e" opacity="0.5">TEMP</text>
+            <text x="385" y="192" font-family="monospace" font-size="22" fill="#7cbf9e">22.1°</text>
+            <path d="M80 260 Q130 230 180 250 Q230 270 280 240 Q330 210 380 235 Q430 255 480 230" stroke="#2e9e6e" stroke-width="1.5" fill="none" opacity="0.7"/>
+            <line x1="80" y1="260" x2="500" y2="260" stroke="#1a6b4a" stroke-width="0.5" opacity="0.3" stroke-dasharray="3 4"/>
+          </svg>
+        </div>
+        <div class="slide-info">
+          <div class="slide-info-tag">Web Dashboard</div>
+          <div class="slide-info-val">Monitor from anywhere, anytime</div>
+        </div>
+      </div>
+      <!-- Slide 3 -->
+      <div class="hero-slide">
+        <img src="product3.jpg" alt="Sensor" onerror="this.style.display='none'">
+        <div class="hero-slide-placeholder">
+          <svg viewBox="0 0 600 500" width="100%" height="100%" fill="none">
+            <rect width="600" height="500" fill="#0a1510"/>
+            <rect x="240" y="60" width="120" height="260" rx="8" fill="#1a3020" stroke="#2e9e6e" stroke-width="1.5" opacity="0.8"/>
+            <rect x="255" y="80" width="90" height="60" rx="3" fill="#0e1a14"/>
+            <text x="270" y="105" font-family="monospace" font-size="9" fill="#7cbf9e">VWC</text>
+            <text x="265" y="128" font-family="monospace" font-size="18" fill="#7cbf9e">32.4%</text>
+            <line x1="265" y1="155" x2="335" y2="155" stroke="#1a6b4a" stroke-width="0.5" opacity="0.5"/>
+            <line x1="265" y1="170" x2="320" y2="170" stroke="#1a6b4a" stroke-width="0.5" opacity="0.3"/>
+            <line x1="265" y1="185" x2="310" y2="185" stroke="#1a6b4a" stroke-width="0.5" opacity="0.2"/>
+            <rect x="280" y="320" width="40" height="120" rx="4" fill="#1a6b4a" opacity="0.6"/>
+            <circle cx="300" cy="440" r="15" fill="#2e9e6e" opacity="0.4"/>
+            <line x1="300" y1="320" x2="300" y2="440" stroke="#2e9e6e" stroke-width="2" stroke-dasharray="4 4" opacity="0.5"/>
+            <circle cx="180" cy="350" r="40" fill="none" stroke="#1a6b4a" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.4"/>
+            <circle cx="420" cy="350" r="40" fill="none" stroke="#1a6b4a" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="slide-info">
+          <div class="slide-info-tag">Precision Sensor</div>
+          <div class="slide-info-val">±0.1% VWC resolution</div>
+        </div>
+      </div>
+    </div>
+    <!-- Nav arrows -->
+    <div onclick="changeHeroSlide(-1)" style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);z-index:10;width:36px;height:36px;background:rgba(124,191,158,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(124,191,158,0.2);color:var(--accent);font-size:1rem;transition:background 0.2s;" onmouseover="this.style.background='rgba(124,191,158,0.25)'" onmouseout="this.style.background='rgba(124,191,158,0.15)'">❮</div>
+    <div onclick="changeHeroSlide(1)" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);z-index:10;width:36px;height:36px;background:rgba(124,191,158,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(124,191,158,0.2);color:var(--accent);font-size:1rem;transition:background 0.2s;" onmouseover="this.style.background='rgba(124,191,158,0.25)'" onmouseout="this.style.background='rgba(124,191,158,0.15)'">❯</div>
+    <div class="slide-dots" id="slideDots">
+      <div class="slide-dot active" onclick="goToSlide(0)"></div>
+      <div class="slide-dot" onclick="goToSlide(1)"></div>
+      <div class="slide-dot" onclick="goToSlide(2)"></div>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <p>&copy; 2024 exactH2O. All rights reserved.</p>
-        <p>Contact: bslbinod@gmail.com</p>
-    </footer>
+<!-- FEATURES STRIP -->
+<div class="features-strip">
+  <div class="strip-inner">
+    <div class="strip-header reveal">
+      <div>
+        <div class="section-label">Why exactH2O</div>
+        <h2 class="section-title">Intelligent irrigation<br>technology</h2>
+      </div>
+      <p class="strip-desc">
+        Designed for environments where water management precision determines experimental validity and crop quality. From a single growth chamber to a multi-acre operation, exactH2O adapts to your scale.
+      </p>
+    </div>
+    <div class="features-grid reveal">
+      <div class="feat-card">
+        <div class="feat-card-img">
+          <img src="scheduling.jpg" alt="Smart Scheduling" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:var(--water-pale);">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#1a6b4a" stroke-width="1.5" stroke-linecap="round"><circle cx="24" cy="24" r="18"/><path d="M24 12 L24 24 L32 28"/></svg>
+          </div>
+        </div>
+        <svg class="feat-card-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="18" cy="18" r="14"/><path d="M18 8 L18 18 L24 22"/></svg>
+        <h3>Smart Scheduling</h3>
+        <p>Automated irrigation triggered by real-time soil moisture thresholds — not timers. Water when the plant needs it, stop when it doesn't.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-img">
+          <img src="dashboard.jpg" alt="Web Dashboard" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:var(--water-pale);">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#1a6b4a" stroke-width="1.5" stroke-linecap="round"><rect x="4" y="8" width="40" height="28" rx="3"/><path d="M16 36 L16 42"/><path d="M32 36 L32 42"/><path d="M10 42 L38 42"/><polyline points="10 26 18 18 24 22 32 14 38 18"/></svg>
+          </div>
+        </div>
+        <svg class="feat-card-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="6" width="30" height="21" rx="2"/><path d="M12 27 L12 32"/><path d="M24 27 L24 32"/><path d="M8 32 L28 32"/><polyline points="8 20 14 14 18 17 24 11 28 14"/></svg>
+        <h3>Web Dashboard</h3>
+        <p>Cloud-based monitoring and control from any device. Real-time sensor readings, historical data plots, and alert management in one interface.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-img">
+          <img src="sensor.jpg" alt="Sensor Integration" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:var(--water-pale);">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#1a6b4a" stroke-width="1.5" stroke-linecap="round"><circle cx="24" cy="16" r="8"/><line x1="24" y1="24" x2="24" y2="44"/><circle cx="24" cy="44" r="3"/></svg>
+          </div>
+        </div>
+        <svg class="feat-card-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="18" cy="12" r="6"/><line x1="18" y1="18" x2="18" y2="33"/><circle cx="18" cy="33" r="2.5"/></svg>
+        <h3>Sensor Integration</h3>
+        <p>High-resolution VWC, electrical conductivity, and temperature sensors with substrate-specific calibration for peat, rockwool, coco, and field soil.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-img">
+          <img src="scaling.jpg" alt="Easy Scaling" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:var(--water-pale);">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#1a6b4a" stroke-width="1.5" stroke-linecap="round"><rect x="4" y="4" width="14" height="14" rx="2"/><rect x="30" y="4" width="14" height="14" rx="2"/><rect x="4" y="30" width="14" height="14" rx="2"/><rect x="30" y="30" width="14" height="14" rx="2"/><circle cx="24" cy="24" r="4"/></svg>
+          </div>
+        </div>
+        <svg class="feat-card-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="10" height="10" rx="1"/><rect x="23" y="3" width="10" height="10" rx="1"/><rect x="3" y="23" width="10" height="10" rx="1"/><rect x="23" y="23" width="10" height="10" rx="1"/><circle cx="18" cy="18" r="3"/></svg>
+        <h3>Easy Scaling</h3>
+        <p>Modular mesh network grows from 4 sensors in a growth chamber to 400+ across a greenhouse range — no new infrastructure required.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <script>
-        let currentSlideIndex = 0;
-        const slides = document.querySelectorAll('.slide');
-        const indicators = document.querySelectorAll('.indicator');
+<!-- DARK DATA BAND -->
+<div class="dark-band reveal">
+  <div class="dark-band-inner">
+    <div>
+      <div class="section-label">Live System Data</div>
+      <h2 class="section-title">Every reading,<br>every second</h2>
+      <p>exactH2O logs continuous timestamped sensor data with calibration traceability — exportable as CSV, JSON, or REST API. Publication-ready from day one.</p>
+      <div style="margin-top:2.5rem;">
+        <a href="applications.html" class="btn-secondary" style="display:inline-block;">Explore Applications →</a>
+      </div>
+    </div>
+    <div class="dark-band-visual">
+      <div class="data-widget">
+        <div class="dw-header">exactH2O · Live Sensor Feed · Zone Array A</div>
+        <div class="dw-row"><span class="dw-label">Sensor 01 — VWC</span><span class="dw-val ok">32.4%</span></div>
+        <div class="dw-row"><span class="dw-label">Sensor 02 — VWC</span><span class="dw-val warn">14.1%</span></div>
+        <div class="dw-row"><span class="dw-label">Sensor 03 — VWC</span><span class="dw-val ok">31.8%</span></div>
+        <div class="dw-row"><span class="dw-label">Sensor 01 — EC</span><span class="dw-val">1.8 dS/m</span></div>
+        <div class="dw-row"><span class="dw-label">Zone Temp</span><span class="dw-val">22.1 °C</span></div>
+        <div class="dw-row"><span class="dw-label">Pump 1 Status</span><span class="dw-val ok">Active</span></div>
+        <div class="dw-row"><span class="dw-label">Last Irrigation</span><span class="dw-val">08:42 AM</span></div>
+        <div class="dw-row"><span class="dw-label">Next Scheduled</span><span class="dw-val">Auto · VWC &lt; 28%</span></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-        // Auto-advance slides every 5 seconds
-        setInterval(() => {
-            changeSlide(1);
-        }, 5000);
+<!-- CTA -->
+<div class="cta-strip reveal">
+  <h2>Ready to optimize your irrigation?</h2>
+  <p>Get a custom quote tailored to your facility, crop, and research needs</p>
+  <a href="quote.html" class="btn-primary">Get Started Today</a>
+</div>
 
-        function changeSlide(direction) {
-            slides[currentSlideIndex].classList.remove('active');
-            indicators[currentSlideIndex].classList.remove('active');
-            
-            currentSlideIndex += direction;
-            
-            if (currentSlideIndex >= slides.length) {
-                currentSlideIndex = 0;
-            } else if (currentSlideIndex < 0) {
-                currentSlideIndex = slides.length - 1;
-            }
-            
-            slides[currentSlideIndex].classList.add('active');
-            indicators[currentSlideIndex].classList.add('active');
-        }
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">exactH2O</div>
+  <div>© 2025 exactH2O · All rights reserved</div>
+  <div><a href="mailto:bslbinod@gmail.com">bslbinod@gmail.com</a></div>
+</footer>
 
-        function currentSlide(index) {
-            slides[currentSlideIndex].classList.remove('active');
-            indicators[currentSlideIndex].classList.remove('active');
-            
-            currentSlideIndex = index;
-            
-            slides[currentSlideIndex].classList.add('active');
-            indicators[currentSlideIndex].classList.add('active');
-        }
+<script>
+  // Hero slideshow
+  let heroIdx = 0;
+  const heroSlides = document.querySelectorAll('.hero-slide');
+  const heroDots = document.querySelectorAll('.slide-dot');
 
-        // Modal functions for enlarged images
-        function openModal(imageSrc) {
-            const modal = document.getElementById('imageModal');
-            const modalImage = document.getElementById('modalImage');
-            modal.classList.add('active');
-            modalImage.src = imageSrc;
-        }
+  function goToSlide(n) {
+    heroSlides[heroIdx].classList.remove('active');
+    heroDots[heroIdx].classList.remove('active');
+    heroIdx = (n + heroSlides.length) % heroSlides.length;
+    heroSlides[heroIdx].classList.add('active');
+    heroDots[heroIdx].classList.add('active');
+  }
+  function changeHeroSlide(dir) { goToSlide(heroIdx + dir); }
+  setInterval(() => changeHeroSlide(1), 5000);
 
-        function closeModal() {
-            const modal = document.getElementById('imageModal');
-            modal.classList.remove('active');
-        }
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('active');
+    document.getElementById('hamburger').classList.toggle('active');
+  }
 
-        // Hamburger menu toggle
-        function toggleMenu() {
-            const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            menu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        }
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            const isClickInside = menu.contains(event.target) || hamburger.contains(event.target);
-            
-            if (!isClickInside && menu.classList.contains('active')) {
-                menu.classList.remove('active');
-                hamburger.classList.remove('active');
-            }
-        });
-    </script>
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
-
