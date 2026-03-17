@@ -654,13 +654,13 @@
 <section class="hero">
   <div class="hero-left">
     <div class="hero-eyebrow">Applications</div>
-    <h1 class="hero-title">Where <em>precision</em><br>meets<br>plant science</h1>
+    <h1 class="hero-title">Where <em>precision</em><br>meets the<br>plant</h1>
     <p class="hero-intro">
-      ExactH2O brings precison control of soil moisture into plant research systems — from greenhouses to phenotyping platforms — enabling researchers to precisely monitor and control plant water status in real time.
+      ExactH2O brings laboratory-grade water measurement into living systems — greenhouses, field plots, and phenotyping chambers — enabling researchers and growers to observe, quantify, and respond to plant water status in real time.
     </p>
     <div class="hero-stat-row">
       <div class="hero-stat">
-        <span class="hero-stat-num">±2%</span>
+        <span class="hero-stat-num">±0.1%</span>
         <span class="hero-stat-label">VWC Accuracy</span>
       </div>
       <div class="hero-stat">
@@ -1109,17 +1109,25 @@
 <footer>
   <div class="footer-logo">exactH2O</div>
   <div>Applications · exacth2o.com</div>
-  <div><a href="/cdn-cgi/l/email-protection#ea889986888384858eaa8d878b8386c4898587" style="color:rgba(244,241,235,0.35);text-decoration:none;"><span class="__cf_email__" data-cfemail="64061708060d0a0b00240309050d084a070b09">[email&#160;protected]</span></a></div>
+  <div><a href="mailto:bslbinod@gmail.com" style="color:rgba(244,241,235,0.35);text-decoration:none;">bslbinod@gmail.com</a></div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Mobile menu
+<script>
   function toggleMenu() {
     document.getElementById('mobileMenu').classList.toggle('active');
     document.getElementById('hamburger').classList.toggle('active');
   }
 
-  // Intersection Observer for reveal animations
   const revealEls = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
-    entries.for
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
