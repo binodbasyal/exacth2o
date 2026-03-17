@@ -146,7 +146,7 @@ nav {
 }
 
 /* Hero right panel */
-.hero-right { position: relative; overflow: hidden; background: #0a1510; }
+.hero-right { position: relative; overflow: hidden; background: #0a1510; min-height: 500px; }
 .hero-visual {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
@@ -465,7 +465,7 @@ footer a:hover { color: var(--accent); }
 </div>
 
 <!-- DARK DATA BAND -->
-<div class="dark-band reveal">
+<div class="dark-band">
   <div class="dark-band-inner">
     <div>
       <div class="section-label">Live System Data</div>
@@ -492,7 +492,7 @@ footer a:hover { color: var(--accent); }
 </div>
 
 <!-- CTA -->
-<div class="cta-strip reveal">
+<div class="cta-strip">
   <h2>Ready to optimize your irrigation?</h2>
   <p>Get a custom quote tailored to your facility, crop, and research needs</p>
   <a href="quote.html" class="btn-primary">Get Started Today</a>
@@ -502,11 +502,10 @@ footer a:hover { color: var(--accent); }
 <footer>
   <div class="footer-logo">exactH2O</div>
   <div>© 2025 exactH2O · All rights reserved</div>
-  <div><a href="/cdn-cgi/l/email-protection#8deffee1efe4e3e2e9cdeae0ece4e1a3eee2e0"><span class="__cf_email__" data-cfemail="7b190817191215141f3b1c161a121755181416">[email&#160;protected]</span></a></div>
+  <div><a href="mailto:bslbinod@gmail.com">bslbinod@gmail.com</a></div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Hero slideshow
+<script>
   let heroIdx = 0;
   const heroSlides = document.querySelectorAll('.hero-slide');
   const heroDots = document.querySelectorAll('.slide-dot');
@@ -521,12 +520,16 @@ footer a:hover { color: var(--accent); }
   function changeHeroSlide(dir) { goToSlide(heroIdx + dir); }
   setInterval(() => changeHeroSlide(1), 5000);
 
-  // Mobile menu
   function toggleMenu() {
     document.getElementById('mobileMenu').classList.toggle('active');
     document.getElementById('hamburger').classList.toggle('active');
   }
 
-  // Reveal on scroll
   const revealEls = document.querySelectorAll('.reveal');
-  const obs = new Inters
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
